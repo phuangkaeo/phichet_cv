@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Segmentation client RFM — Phichet Phuangkaeo</title>
+<meta name="description" content="Application R / Shiny sur le comportement d'achat e-commerce, du nettoyage des données à la restitution Power BI.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ready sub">
+
+<div class="bar" id="bar">
+  <div class="bar-id">
+    <a href="index.html" aria-label="Phichet Phuangkaeo, accueil">
+      <img src="photo.jpg" alt="">
+      <span>Phichet Phuangkaeo</span>
+    </a>
+  </div>
+  <div class="lang" role="group" aria-label="Langue">
+    <button id="btn-fr" aria-pressed="true">FR</button><i>/</i><button id="btn-en" aria-pressed="false">EN</button>
+  </div>
+</div>
+
+<div id="app">
+<main class="wrap">
+
+  <div class="page-head">
+    <a class="back" href="index.html#projets"
+       data-fr="Retour aux projets" data-en="Back to the projects">Retour aux projets</a>
+    <h1 data-fr="Segmentation client RFM" data-en="RFM customer segmentation">Segmentation client RFM</h1>
+    <p class="sub"
+           data-fr="Une application R / Shiny sur le comportement d'achat e-commerce, du nettoyage des données jusqu'à la restitution Power BI."
+           data-en="An R / Shiny application on e-commerce purchase behaviour, from data cleansing to Power BI reporting.">Une application R / Shiny sur le comportement d'achat e-commerce, du nettoyage des données jusqu'à la restitution Power BI.</p>
+    <div class="tags">
+          <span class="tag">R</span><span class="tag">Shiny</span><span class="tag">dplyr</span>
+          <span class="tag">ggplot2</span><span class="tag">randomForest</span><span class="tag">Power BI</span>
+        </div>
+  </div>
+
+  <div class="body-block">
+    <div class="s-name" data-fr="Le projet" data-en="The project">Le projet</div>
+    <div class="s-body">
+
+        <div class="nums countup">
+          <div class="num"><div class="n" data-count="24399">0</div>
+            <div class="c" data-fr="clients segmentés" data-en="customers segmented">clients segmentés</div></div>
+          <div class="num"><div class="n" data-count="6">0</div>
+            <div class="c" data-fr="segments RFM" data-en="RFM segments">segments RFM</div></div>
+          <div class="num"><div class="n" data-count="28" data-suffix="%">0</div>
+            <div class="c" data-fr="du panier à l'achat" data-en="cart to purchase">du panier à l'achat</div></div>
+        </div>
+
+        <div class="part" data-fr="Analyse R / Shiny" data-en="R / Shiny analysis">Analyse R / Shiny</div>
+
+        <div class="chart-head" data-fr="Clients par segment" data-en="Customers by segment">Clients par segment</div>
+        <div class="chartblock">
+          <div class="row"><span data-fr="Autres" data-en="Others">Autres</span>
+            <span class="track"><span class="fill" data-pct="100"></span></span><span class="val">7982</span></div>
+          <div class="row"><span data-fr="Loyalistes pot." data-en="Potential loyal.">Loyalistes pot.</span>
+            <span class="track"><span class="fill" data-pct="69"></span></span><span class="val">5517</span></div>
+          <div class="row"><span data-fr="À risque" data-en="At risk">À risque</span>
+            <span class="track"><span class="fill" data-pct="56"></span></span><span class="val">4455</span></div>
+          <div class="row"><span data-fr="Clients fidèles" data-en="Loyal customers">Clients fidèles</span>
+            <span class="track"><span class="fill" data-pct="54"></span></span><span class="val">4298</span></div>
+          <div class="row"><span data-fr="Perdus" data-en="Lost">Perdus</span>
+            <span class="track"><span class="fill" data-pct="21"></span></span><span class="val">1645</span></div>
+          <div class="row"><span data-fr="Champions" data-en="Champions">Champions</span>
+            <span class="track"><span class="fill" data-pct="6"></span></span><span class="val">502</span></div>
+        </div>
+
+        <div class="chart-head" data-fr="Panier moyen par segment" data-en="Average basket per segment">Panier moyen par segment</div>
+        <div class="chartblock">
+          <div class="row"><span data-fr="Champions" data-en="Champions">Champions</span>
+            <span class="track"><span class="fill" data-pct="100"></span></span><span class="val">768</span></div>
+          <div class="row"><span data-fr="Loyalistes pot." data-en="Potential loyal.">Loyalistes pot.</span>
+            <span class="track"><span class="fill" data-pct="46"></span></span><span class="val">356</span></div>
+          <div class="row"><span data-fr="À risque" data-en="At risk">À risque</span>
+            <span class="track"><span class="fill" data-pct="40"></span></span><span class="val">305</span></div>
+          <div class="row"><span data-fr="Clients fidèles" data-en="Loyal customers">Clients fidèles</span>
+            <span class="track"><span class="fill" data-pct="39"></span></span><span class="val">299</span></div>
+          <div class="row"><span data-fr="Perdus" data-en="Lost">Perdus</span>
+            <span class="track"><span class="fill" data-pct="38"></span></span><span class="val">291</span></div>
+          <div class="row"><span data-fr="Autres" data-en="Others">Autres</span>
+            <span class="track"><span class="fill" data-pct="20"></span></span><span class="val">157</span></div>
+        </div>
+        <p class="note"
+           data-fr="Résultats réels de l'application, sur le jeu de données d'un client fictif."
+           data-en="Actual output of the application, on the dataset of a fictional client.">Résultats réels de l'application, sur le jeu de données d'un client fictif.</p>
+
+        <div class="shots">
+          <figure class="shot wide">
+            <img src="shiny-kpis.png" loading="lazy"
+                 alt="Page Data Visualization de l'application Shiny">
+            <figcaption data-fr="Indicateurs clés et distribution des événements dans la journée."
+                        data-en="Key indicators and how events spread across the day.">Indicateurs clés et distribution des événements dans la journée.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="shiny-rfm.png" loading="lazy" alt="Tableau d'interprétation RFM par segment">
+            <figcaption data-fr="Récence, fréquence et panier moyen par segment."
+                        data-en="Recency, frequency and average basket per segment.">Récence, fréquence et panier moyen par segment.</figcaption>
+          </figure>
+          <figure class="shot">
+            <img src="shiny-segments.png" loading="lazy" alt="Contribution monétaire moyenne par segment">
+            <figcaption data-fr="Contribution monétaire moyenne par segment."
+                        data-en="Average monetary contribution per segment.">Contribution monétaire moyenne par segment.</figcaption>
+          </figure>
+        </div>
+
+        <div class="part" data-fr="Restitution Power BI" data-en="Power BI reporting">Restitution Power BI</div>
+
+        <div class="chart-head" data-fr="De la vue à l'achat" data-en="From view to purchase">De la vue à l'achat</div>
+        <div class="chartblock">
+          <div class="row"><span data-fr="Vues" data-en="Views">Vues</span>
+            <span class="track"><span class="fill teal" data-pct="100"></span></span>
+            <span class="val" data-fr="19,29 M" data-en="19.29M">19,29 M</span></div>
+          <div class="row"><span data-fr="Paniers" data-en="Carts">Paniers</span>
+            <span class="track"><span class="fill teal" data-pct="5"></span></span>
+            <span class="val" data-fr="0,96 M" data-en="0.96M">0,96 M</span></div>
+          <div class="row"><span data-fr="Achats" data-en="Purchases">Achats</span>
+            <span class="track"><span class="fill teal" data-pct="2"></span></span>
+            <span class="val" data-fr="0,34 M" data-en="0.34M">0,34 M</span></div>
+        </div>
+        <p class="note"
+           data-fr="1,8 % de conversion de la vue à l'achat. La perte se joue avant la mise au panier."
+           data-en="A 1.8% view-to-purchase conversion. The drop-off happens before the cart.">1,8 % de conversion de la vue à l'achat. La perte se joue avant la mise au panier.</p>
+
+        <div class="chart-head" data-fr="Les événements dans la journée" data-en="Events across the day">Les événements dans la journée</div>
+        <div class="chartblock">
+          <div class="row"><span data-fr="Matin" data-en="Morning">Matin</span>
+            <span class="track"><span class="fill teal" data-pct="39"></span></span>
+            <span class="val" data-fr="38,6 %" data-en="38.6%">38,6 %</span></div>
+          <div class="row"><span data-fr="Après-midi" data-en="Afternoon">Après-midi</span>
+            <span class="track"><span class="fill teal" data-pct="30"></span></span>
+            <span class="val" data-fr="30,2 %" data-en="30.2%">30,2 %</span></div>
+          <div class="row"><span data-fr="Soirée" data-en="Evening">Soirée</span>
+            <span class="track"><span class="fill teal" data-pct="18"></span></span>
+            <span class="val" data-fr="18,3 %" data-en="18.3%">18,3 %</span></div>
+          <div class="row"><span data-fr="Après minuit" data-en="After midnight">Après minuit</span>
+            <span class="track"><span class="fill teal" data-pct="13"></span></span>
+            <span class="val" data-fr="13,0 %" data-en="13.0%">13,0 %</span></div>
+        </div>
+
+        <ul class="points">
+          <li data-fr="Près de 70 % de l'activité tient dans la matinée et l'après-midi : c'est la fenêtre à privilégier pour les campagnes et les tests de prix."
+              data-en="Nearly 70% of the activity sits in the morning and the afternoon, which is the window to favour for campaigns and price tests.">Près de 70 % de l'activité tient dans la matinée et l'après-midi : c'est la fenêtre à privilégier pour les campagnes et les tests de prix.</li>
+          <li data-fr="Les 502 Champions dépensent en moyenne 768 contre 157 pour le segment « Autres », près de cinq fois plus. C'est la cible de fidélisation prioritaire."
+              data-en="The 502 Champions spend 768 on average against 157 for the Others segment, nearly five times more. That is the priority retention target.">Les 502 Champions dépensent en moyenne 768 contre 157 pour le segment « Autres », près de cinq fois plus. C'est la cible de fidélisation prioritaire.</li>
+        </ul>
+
+        <div class="part" data-fr="Prédiction d'achat (random forest)" data-en="Purchase prediction (random forest)">Prédiction d'achat (random forest)</div>
+
+        <div class="nums teal countup">
+          <div class="num"><div class="n" data-count="0.36" data-dec="2">0.00</div>
+            <div class="c" data-fr="score F1" data-en="F1 score">score F1</div></div>
+          <div class="num"><div class="n" data-count="1" data-dec="2">0.00</div>
+            <div class="c" data-fr="rappel" data-en="recall">rappel</div></div>
+          <div class="num"><div class="n" data-count="0.22" data-dec="2">0.00</div>
+            <div class="c" data-fr="précision" data-en="precision">précision</div></div>
+        </div>
+
+        <ul class="points">
+          <li data-fr="Les achats représentent environ 1 % des sessions. Un modèle qui répondrait toujours « pas d'achat » atteindrait déjà 98,6 % d'exactitude, donc le tableau de bord affiche l'exactitude à côté de cette référence et retient le F1."
+              data-en="Purchases are about 1% of sessions. A model always answering no purchase would already reach 98.6% accuracy, so the dashboard shows accuracy next to that baseline and keeps F1 as the headline.">Les achats représentent environ 1 % des sessions. Un modèle qui répondrait toujours « pas d'achat » atteindrait déjà 98,6 % d'exactitude, donc le tableau de bord affiche l'exactitude à côté de cette référence et retient le F1.</li>
+          <li data-fr="À 95,0 %, le modèle reste sous cette référence : pas encore de gain prédictif réel. Une première version atteignait 99,98 % grâce à des variables qui contenaient déjà la réponse ; elles ont été retirées et le diagnostic se poursuit."
+              data-en="At 95.0% it stays below that baseline, so no real predictive gain yet. An earlier version reached 99.98% thanks to features that already contained the answer; those were removed and the diagnosis continues.">À 95,0 %, le modèle reste sous cette référence : pas encore de gain prédictif réel. Une première version atteignait 99,98 % grâce à des variables qui contenaient déjà la réponse ; elles ont été retirées et le diagnostic se poursuit.</li>
+        </ul>
+
+    </div>
+  </div>
+
+  <div class="next">
+    <a href="index.html#projets" data-fr="Retour aux projets" data-en="Back to the projects">Retour aux projets</a>
+    <a href="projet-scoring-pd.html" data-fr="Projet précédent : scoring de probabilité de défaut" data-en="Previous project: probability-of-default scoring">Projet précédent : scoring de probabilité de défaut</a>
+  </div>
+
+  <footer>Phichet Phuangkaeo, Lille, 2026</footer>
+</main>
+</div>
+
+<script src="script.js" defer></script>
+</body>
+</html>

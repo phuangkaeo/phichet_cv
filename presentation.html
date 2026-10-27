@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Présentation — Phichet Phuangkaeo</title>
+  <meta name="description" content="Présentation de Phichet Phuangkaeo en 90 secondes : recherche de stage, expérience, projet et méthode.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Source+Serif+4:ital,opsz,wght@1,8..60,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #EDEEE9;
+      --card: #E4E6DF;
+      --border: #CFD2CA;
+      --text: #16202C;
+      --muted: #5A6672;
+      --saffron: #D9900F;   /* amber, as on the site */
+      --green: #0B6B66;     /* teal, low risk */
+      --red: #A8341C;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #D7DACF;
+      color: var(--text);
+      font-family: 'Archivo', system-ui, -apple-system, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* 16:9 Stage Container */
+    #viewport {
+      width: 100vw;
+      height: 56.25vw;
+      max-height: 100vh;
+      max-width: 177.78vh;
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 70px rgba(22,32,44,0.22);
+    }
+
+    /* Fixed 1920x1080 internal coordinate system scaled dynamically */
+    #stage {
+      width: 1920px;
+      height: 1080px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top left;
+    }
+
+    .scene {
+      position: absolute;
+      inset: 0;
+      display: none;
+      padding: 0 180px;
+    }
+    .scene.active { display: flex; }
+
+    /* Controls Bar (auto-hides when playing in fullscreen) */
+    #controls {
+      position: fixed;
+      bottom: 20px;
+      background: rgba(237, 238, 233, 0.94);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      padding: 10px 20px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      z-index: 100;
+      transition: opacity 0.3s ease;
+    }
+    body.hide-ui #controls { opacity: 0; pointer-events: none; }
+
+    button, .file-btn {
+      background: #0B6B66;
+      color: #EDEEE9;
+      border: none;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 9px 18px;
+      border-radius: 2px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .secondary-btn {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .secondary-btn:hover { border-color: var(--text); }
+    #scrubber {
+      width: 320px;
+      accent-color: var(--saffron);
+      cursor: pointer;
+    }
+    #time-display {
+      font-variant-numeric: tabular-nums;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+      min-width: 95px;
+    }
+    #back {
+      position: fixed;
+      top: 20px;
+      left: 24px;
+      z-index: 100;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      background: rgba(237, 238, 233, 0.94);
+      border: 1px solid var(--border);
+      padding: 9px 18px;
+      border-radius: 2px;
+      backdrop-filter: blur(10px);
+      transition: color 0.2s ease, border-color 0.2s ease, opacity 0.3s ease;
+    }
+    #back:hover { color: var(--text); border-color: var(--text); }
+    body.hide-ui #back { opacity: 0; pointer-events: none; }
+
+    /* the slides borrow the site's flat, ruled look */
+    #s2-f0, #s2-f1, #s2-f2, #s2-f3, #s2-pill,
+    .day-box, #s3-card, #s4-b0, #s4-b1, #s4-b2, #s4-b3,
+    #s5-r1-0, #s5-r1-1, #s5-r1-2, #s5-r2-0, #s5-r2-1, #s5-r2-2,
+    #s6-tile, #s7-r0, #s7-r1, #s7-r2, #s8-url { border-radius: 3px !important; }
+    #s3-card, #s6-tile { box-shadow: none !important; }
+    #s1-underline { border-radius: 0 !important; }
+    #s6-quote { font-family: 'Source Serif 4', Georgia, serif; font-weight: 600; }
+    #s4-marker { box-shadow: 0 4px 16px rgba(22,32,44,0.25) !important; }
+    /* ink on amber reads; paper on amber does not */
+    .day-box span, #s4-b2 { color: #16202C !important; }
+
+    #scene-label {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 600;
+      min-width: 140px;
+    }
+  </style>
+</head>
+<body>
+
+  <a id="back" href="index.html">&#8592;&nbsp;&nbsp;Retour au site</a>
+
+  <div id="viewport">
+    <div id="stage">
+
+      <!-- SCENE 1: 0:00 - 0:05 · Intro -->
+      <div id="scene-1" class="scene" style="flex-direction: column; justify-content: center; padding-left: 220px;">
+        <div style="overflow: hidden;">
+          <div id="s1-line1" style="font-size: 128px; font-weight: 800; letter-spacing: -3px; line-height: 1.05;">PHICHET</div>
+        </div>
+        <div style="overflow: hidden; margin-top: 4px;">
+          <div id="s1-line2" style="font-size: 128px; font-weight: 800; letter-spacing: -3px; line-height: 1.05;">PHUANGKAEO</div>
+        </div>
+        <div id="s1-underline" style="height: 10px; background: var(--saffron); border-radius: 5px; margin: 28px 0;"></div>
+        <div id="s1-sub" style="font-size: 52px; font-weight: 500; color: var(--muted);">Analyste Data & BI</div>
+      </div>
+
+      <!-- SCENE 2: 0:05 - 0:19 · What I'm looking for -->
+      <div id="scene-2" class="scene" style="flex-direction: column; justify-content: center;">
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; margin-bottom: 64px;">
+          <div id="s2-f0" style="background: var(--card); border: 2px solid var(--saffron); color: var(--saffron); padding: 20px 36px; border-radius: 16px; font-size: 40px; font-weight: 700;">Stage conventionné</div>
+          <div id="s2-f1" style="background: var(--card); border: 2px solid var(--border); padding: 20px 36px; border-radius: 16px; font-size: 40px; font-weight: 700;">4–6 mois</div>
+          <div id="s2-f2" style="background: var(--card); border: 2px solid var(--border); padding: 20px 36px; border-radius: 16px; font-size: 40px; font-weight: 700;">Dès décembre</div>
+          <div id="s2-f3" style="background: var(--card); border: 2px solid var(--border); padding: 20px 36px; border-radius: 16px; font-size: 40px; font-weight: 700;">Métropole lilloise</div>
+        </div>
+        <div id="s2-week" style="display: flex; gap: 24px;">
+          <div class="day-box" id="s2-d0" style="width:190px;height:170px;border-radius:20px;background:var(--saffron);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <span style="font-size:56px;font-weight:800;color:var(--bg);">L</span>
+            <span style="font-size:24px;font-weight:600;margin-top:8px;color:var(--bg);">Entreprise</span>
+          </div>
+          <div class="day-box" id="s2-d1" style="width:190px;height:170px;border-radius:20px;background:var(--saffron);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <span style="font-size:56px;font-weight:800;color:var(--bg);">M</span>
+            <span style="font-size:24px;font-weight:600;margin-top:8px;color:var(--bg);">Entreprise</span>
+          </div>
+          <div class="day-box" id="s2-d2" style="width:190px;height:170px;border-radius:20px;background:var(--saffron);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <span style="font-size:56px;font-weight:800;color:var(--bg);">M</span>
+            <span style="font-size:24px;font-weight:600;margin-top:8px;color:var(--bg);">Entreprise</span>
+          </div>
+          <div class="day-box" id="s2-d3" style="width:190px;height:170px;border-radius:20px;border:3px solid var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <span style="font-size:56px;font-weight:800;color:var(--text);">J</span>
+            <span style="font-size:24px;font-weight:600;margin-top:8px;color:var(--muted);">Cours</span>
+          </div>
+          <div class="day-box" id="s2-d4" style="width:190px;height:170px;border-radius:20px;border:3px solid var(--muted);display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <span style="font-size:56px;font-weight:800;color:var(--text);">V</span>
+            <span style="font-size:24px;font-weight:600;margin-top:8px;color:var(--muted);">Cours</span>
+          </div>
+        </div>
+        <div id="s2-pill" style="margin-top:56px;align-self:flex-start;background:rgba(245,158,11,0.15);border:2px solid var(--saffron);color:var(--saffron);padding:16px 40px;border-radius:999px;font-size:36px;font-weight:700;">
+          ✦ Ouvert à l'alternance
+        </div>
+      </div>
+
+      <!-- SCENE 3: 0:19 - 0:36 · Experience -->
+      <div id="scene-3" class="scene" style="align-items: center; justify-content: space-between; padding: 0 160px;">
+        <div style="display: flex; flex-direction: column;">
+          <div id="s3-5ans" style="font-size: 190px; font-weight: 900; color: var(--saffron); line-height: 1; letter-spacing: -5px; transform-origin: left center;">5 ans</div>
+          <div style="display: flex; align-items: center; gap: 24px; margin-top: 36px; font-size: 44px; font-weight: 700;">
+            <span>Thaïlande</span>
+            <div style="width: 180px; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;">
+              <div id="s3-line" style="height: 100%; background: var(--saffron);"></div>
+            </div>
+            <span id="s3-france">France</span>
+          </div>
+        </div>
+        <div id="s3-card" style="width: 820px; background: var(--card); border: 2px solid var(--border); border-radius: 24px; padding: 48px;">
+          <div style="font-size: 44px; font-weight: 800;">oXya <span style="color: var(--muted); font-weight: 500;">· Lille · ≈ 2 ans</span></div>
+          <div style="font-size: 32px; font-weight: 600; color: var(--saffron); margin: 8px 0 40px;">Data engineer</div>
+          <div id="s3-sap" style="display: flex; align-items: center; gap: 24px; margin-bottom: 32px;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#D9900F" stroke-width="2.2">
+              <ellipse cx="12" cy="5" rx="9" ry="3" />
+              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+            </svg>
+            <span style="font-size: 36px; font-weight: 600;">Entrepôt de données · SAP</span>
+          </div>
+          <div id="s3-pbi" style="display: flex; align-items: center; gap: 24px;">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+              <rect id="s3-b1" x="3" y="12" width="4" height="8" rx="1" fill="#D9900F" />
+              <rect id="s3-b2" x="10" y="7" width="4" height="13" rx="1" fill="#D9900F" />
+              <rect id="s3-b3" x="17" y="2" width="4" height="18" rx="1" fill="#D9900F" />
+            </svg>
+            <span style="font-size: 36px; font-weight: 600;">Power BI · plusieurs entités</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 4: 0:36 - 0:47 · Current project -->
+      <div id="scene-4" class="scene" style="flex-direction: column; justify-content: center; padding: 0 140px;">
+        <div id="s4-title" style="font-size: 64px; font-weight: 800; margin-bottom: 64px;">Probabilité de défaut</div>
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <div id="s4-b0" style="padding: 32px 44px; border-radius: 20px; background: var(--card); border: 3px solid var(--border); font-size: 40px; font-weight: 800;">API INPI</div>
+          <div style="width: 90px;"><div id="s4-a0" style="height: 6px; background: var(--saffron); border-radius: 3px;"></div></div>
+          <div id="s4-b1" style="padding: 32px 44px; border-radius: 20px; background: var(--card); border: 3px solid var(--border); font-size: 40px; font-weight: 800;">Databricks</div>
+          <div style="width: 90px;"><div id="s4-a1" style="height: 6px; background: var(--saffron); border-radius: 3px;"></div></div>
+          <div id="s4-b2" style="padding: 32px 44px; border-radius: 20px; background: var(--saffron); border: 3px solid var(--saffron); color: var(--bg); font-size: 40px; font-weight: 800;">Modèle PD</div>
+          <div style="width: 90px;"><div id="s4-a2" style="height: 6px; background: var(--saffron); border-radius: 3px;"></div></div>
+          <div id="s4-b3" style="padding: 32px 44px; border-radius: 20px; background: var(--card); border: 3px solid var(--border); font-size: 40px; font-weight: 800;">Métier</div>
+        </div>
+        <div id="s4-bar" style="margin-top: 90px;">
+          <div style="height: 24px; width: 100%; border-radius: 12px; background: linear-gradient(90deg, var(--green) 0%, var(--saffron) 50%, var(--red) 100%); position: relative;">
+            <div id="s4-marker" style="position: absolute; top: -14px; width: 52px; height: 52px; border-radius: 50%; background: var(--text); border: 6px solid var(--bg); box-shadow: 0 4px 20px rgba(0,0,0,0.6); transform: translateX(-50%);"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCENE 5: 0:47 - 1:00 · What I bring -->
+      <div id="scene-5" class="scene" style="flex-direction: column; justify-content: center;">
+        <div id="s5-title" style="font-size: 72px; font-weight: 800; margin-bottom: 56px;">Pas seulement l'outil.</div>
+        <div style="display: flex; gap: 28px; margin-bottom: 32px;">
+          <div id="s5-r1-0" style="padding: 22px 48px; border-radius: 999px; background: var(--card); border: 2px solid var(--saffron); color: var(--saffron); font-size: 42px; font-weight: 700;">Thaï</div>
+          <div id="s5-r1-1" style="padding: 22px 48px; border-radius: 999px; background: var(--card); border: 2px solid var(--saffron); color: var(--saffron); font-size: 42px; font-weight: 700;">English</div>
+          <div id="s5-r1-2" style="padding: 22px 48px; border-radius: 999px; background: var(--card); border: 2px solid var(--saffron); color: var(--saffron); font-size: 42px; font-weight: 700;">Français</div>
+        </div>
+        <div style="display: flex; gap: 28px;">
+          <div id="s5-r2-0" style="padding: 22px 48px; border-radius: 999px; background: var(--card); border: 2px solid var(--border); font-size: 42px; font-weight: 700;">Thaïlande</div>
+          <div id="s5-r2-1" style="padding: 22px 48px; border-radius: 999px; background: var(--card); border: 2px solid var(--border); font-size: 42px; font-weight: 700;">Japon</div>
+          <div id="s5-r2-2" style="padding: 22px 48px; border-radius: 999px; background: var(--card); border: 2px solid var(--border); font-size: 42px; font-weight: 700;">France</div>
+        </div>
+      </div>
+
+      <!-- SCENE 6: 1:00 - 1:13 · My method -->
+      <div id="scene-6" class="scene" style="flex-direction: column; align-items: center; justify-content: center;">
+        <div style="display: flex; align-items: center; gap: 32px; font-size: 52px; font-weight: 700; margin-bottom: 60px;">
+          <span style="color: var(--muted);">Besoin flou</span>
+          <span id="s6-arrow" style="color: var(--saffron);">→</span>
+          <span id="s6-precis" style="color: var(--saffron);">Indicateur précis</span>
+        </div>
+        <div id="s6-dots-stage" style="width: 400px; height: 260px; position: relative; display: flex; align-items: center; justify-content: center;">
+          <div id="s6-dots-container" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;"></div>
+          <div id="s6-tile" style="width: 320px; height: 200px; border-radius: 24px; background: var(--card); border: 4px solid var(--saffron); display: flex; align-items: center; justify-content: center; box-shadow: 0 20px 50px rgba(245,158,11,0.2);">
+            <svg width="200" height="90" viewBox="0 0 200 90" fill="none">
+              <path d="M 15 75 L 70 50 L 125 60 L 185 15" stroke="#D9900F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="185" cy="15" r="9" fill="#D9900F" />
+            </svg>
+          </div>
+        </div>
+        <div id="s6-quote" style="margin-top: 64px; font-size: 60px; font-weight: 800; font-style: italic;">« Utilisé ou abandonné. »</div>
+      </div>
+
+      <!-- SCENE 7: 1:13 - 1:20 · Credentials -->
+      <div id="scene-7" class="scene" style="flex-direction: column; justify-content: center; padding: 0 220px; gap: 32px;">
+        <div id="s7-r0" style="background: var(--card); border-left: 8px solid var(--saffron); padding: 28px 48px; border-radius: 16px; font-size: 48px; font-weight: 700;">M1 MIADS · IAE Lille</div>
+        <div id="s7-r1" style="background: var(--card); border-left: 8px solid var(--saffron); padding: 28px 48px; border-radius: 16px; font-size: 48px; font-weight: 700;">Power BI PL-300</div>
+        <div id="s7-r2" style="background: var(--card); border-left: 8px solid var(--saffron); padding: 28px 48px; border-radius: 16px; font-size: 48px; font-weight: 700;">Lille · mobile métropole</div>
+      </div>
+
+      <!-- SCENE 8: 1:20 - 1:30 · Call to action -->
+      <div id="scene-8" class="scene" style="flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+        <div id="s8-q" style="font-size: 68px; font-weight: 700;">Des données inexploitées ?</div>
+        <div id="s8-parlons" style="font-size: 96px; font-weight: 900; color: var(--saffron); margin-top: 12px;">Parlons-en.</div>
+        <div id="s8-url" style="margin-top: 56px; padding: 24px 56px; border-radius: 20px; background: var(--card); border: 3px solid var(--saffron); font-size: 48px; font-weight: 700; letter-spacing: 1px;">phuangkaeo.github.io</div>
+        <div id="s8-merci" style="margin-top: 48px; font-size: 36px; font-weight: 500; color: var(--muted);">Merci</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Player Controls -->
+  <div id="controls">
+    <button id="play-btn">▶ Play</button>
+    <input type="range" id="scrubber" min="0" max="90" step="0.033" value="0" />
+    <span id="time-display">0:00 / 1:30</span>
+    <span id="scene-label">Scene 1 · Intro</span>
+    <label class="file-btn secondary-btn">
+      🎵 Audio VO
+      <input type="file" id="audio-input" accept="audio/*" style="display:none" />
+    </label>
+    <button id="fs-btn" class="secondary-btn">⛶ Plein écran</button>
+  </div>
+
+  <audio id="vo-audio"></audio>
+
+  <script>
+    // --- Responsive 1920x1080 Scaling ---
+    const viewport = document.getElementById('viewport');
+    const stage = document.getElementById('stage');
+    function resizeStage() {
+      const scale = viewport.clientWidth / 1920;
+      stage.style.transform = `scale(${scale})`;
+    }
+    window.addEventListener('resize', resizeStage);
+    resizeStage();
+
+    // --- Create 15 Drifting Dots for Scene 6 ---
+    const dotsContainer = document.getElementById('s6-dots-container');
+    const DOTS = Array.from({ length: 15 }).map((_, i) => {
+      const el = document.createElement('div');
+      el.style.cssText = 'position:absolute;width:18px;height:18px;border-radius:50%;background:#D9900F;opacity:.45;';
+      dotsContainer.appendChild(el);
+      return {
+        el,
+        angle: (i / 15) * Math.PI * 2,
+        radius: 220 + (i % 3) * 90,
+        speed: 0.9 + (i % 4) * 0.3,
+      };
+    });
+
+    // --- Math & Easing Helpers ---
+    const clamp = (v, min = 0, max = 1) => Math.max(min, Math.min(max, v));
+    const remap = (t, t0, t1) => clamp((t - t0) / (t1 - t0));
+    const easeOutBack = (x) => {
+      const c1 = 1.70158;
+      const c3 = c1 + 1;
+      return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+    };
+    const easeOutCubic = (x) => 1 - Math.pow(1 - x, 3);
+    const easeInOutCubic = (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    const springPop = (t, start, dur = 0.45) => easeOutBack(remap(t, start, start + dur));
+    const smoothFade = (t, start, dur = 0.4) => easeOutCubic(remap(t, start, start + dur));
+
+    // --- Scene Definitions ---
+    const SCENES = [
+      { id: 'scene-1', start: 0, end: 5, name: 'Scene 1 · Intro' },
+      { id: 'scene-2', start: 5, end: 19, name: 'Scene 2 · Recherche' },
+      { id: 'scene-3', start: 19, end: 36, name: 'Scene 3 · Expérience' },
+      { id: 'scene-4', start: 36, end: 47, name: 'Scene 4 · Projet PD' },
+      { id: 'scene-5', start: 47, end: 60, name: 'Scene 5 · Valeur ajoutée' },
+      { id: 'scene-6', start: 60, end: 73, name: 'Scene 6 · Méthode' },
+      { id: 'scene-7', start: 73, end: 80, name: 'Scene 7 · Parcours' },
+      { id: 'scene-8', start: 80, end: 90.01, name: 'Scene 8 · Contact' },
+    ];
+
+    function renderAtTime(t) {
+      // Activate current scene
+      let currentScene = SCENES[0];
+      for (const s of SCENES) {
+        const el = document.getElementById(s.id);
+        if (t >= s.start && t < s.end) {
+          el.classList.add('active');
+          currentScene = s;
+        } else {
+          el.classList.remove('active');
+        }
+      }
+      document.getElementById('scene-label').textContent = currentScene.name;
+
+      // Local scene time
+      const st = t - currentScene.start;
+
+      // SCENE 1 (0 - 5s)
+      if (currentScene.id === 'scene-1') {
+        const l1 = smoothFade(st, 0.15, 0.5);
+        const l2 = smoothFade(st, 0.55, 0.5);
+        const ul = easeOutCubic(remap(st, 0.9, 2.1));
+        const sub = smoothFade(st, 1.5, 0.5);
+
+        const el1 = document.getElementById('s1-line1');
+        el1.style.transform = `translateY(${(1 - l1) * 120}px)`;
+        el1.style.opacity = l1;
+
+        const el2 = document.getElementById('s1-line2');
+        el2.style.transform = `translateY(${(1 - l2) * 120}px)`;
+        el2.style.opacity = l2;
+
+        document.getElementById('s1-underline').style.width = `${780 * ul}px`;
+
+        const elSub = document.getElementById('s1-sub');
+        elSub.style.opacity = sub;
+        elSub.style.transform = `translateY(${(1 - sub) * 20}px)`;
+      }
+
+      // SCENE 2 (5 - 19s)
+      if (currentScene.id === 'scene-2') {
+        [0.3, 1.4, 2.5, 3.6].forEach((delay, idx) => {
+          const p = springPop(st, delay);
+          const f = smoothFade(st, delay);
+          const el = document.getElementById(`s2-f${idx}`);
+          el.style.opacity = f;
+          el.style.transform = `translateY(${(1 - f) * 30}px) scale(${0.9 + 0.1 * p})`;
+        });
+
+        for (let i = 0; i < 5; i++) {
+          const dp = springPop(st, 5.2 + i * 0.22);
+          const df = smoothFade(st, 5.2 + i * 0.22, 0.25);
+          const dEl = document.getElementById(`s2-d${i}`);
+          dEl.style.opacity = df;
+          dEl.style.transform = `scale(${dp})`;
+        }
+
+        // At 0:15 global -> 10s local
+        const pillP = springPop(st, 10.0);
+        const pillF = smoothFade(st, 10.0);
+        const pillEl = document.getElementById('s2-pill');
+        pillEl.style.opacity = pillF;
+        pillEl.style.transform = `scale(${0.85 + 0.15 * pillP})`;
+      }
+
+      // SCENE 3 (19 - 36s)
+      if (currentScene.id === 'scene-3') {
+        const p5 = springPop(st, 0.2, 0.55);
+        document.getElementById('s3-5ans').style.transform = `scale(${p5})`;
+
+        const lineW = easeInOutCubic(remap(st, 1.1, 2.6));
+        document.getElementById('s3-line').style.width = `${lineW * 100}%`;
+        document.getElementById('s3-france').style.opacity = lineW;
+
+        const cardF = smoothFade(st, 2.8, 0.6);
+        const cardEl = document.getElementById('s3-card');
+        cardEl.style.opacity = cardF;
+        cardEl.style.transform = `translateX(${(1 - cardF) * 120}px)`;
+
+        // 0:28 global = 9s local
+        const sapF = smoothFade(st, 9.0, 0.45);
+        const sapEl = document.getElementById('s3-sap');
+        sapEl.style.opacity = sapF;
+        sapEl.style.transform = `translateY(${(1 - sapF) * 20}px)`;
+
+        // 0:31 global = 12s local
+        const pbiF = smoothFade(st, 12.0, 0.5);
+        const pbiEl = document.getElementById('s3-pbi');
+        pbiEl.style.opacity = pbiF;
+        pbiEl.style.transform = `translateY(${(1 - pbiF) * 20}px)`;
+
+        const b1 = document.getElementById('s3-b1');
+        const b2 = document.getElementById('s3-b2');
+        const b3 = document.getElementById('s3-b3');
+        b1.setAttribute('y', 20 - 8 * pbiF); b1.setAttribute('height', 8 * pbiF);
+        b2.setAttribute('y', 20 - 13 * pbiF); b2.setAttribute('height', 13 * pbiF);
+        b3.setAttribute('y', 20 - 18 * pbiF); b3.setAttribute('height', 18 * pbiF);
+      }
+
+      // SCENE 4 (36 - 47s)
+      if (currentScene.id === 'scene-4') {
+        const tf = smoothFade(st, 0.15);
+        document.getElementById('s4-title').style.opacity = tf;
+
+        for (let i = 0; i < 4; i++) {
+          const bf = smoothFade(st, 0.8 + i * 0.9, 0.35);
+          const bp = springPop(st, 0.8 + i * 0.9, 0.4);
+          const bEl = document.getElementById(`s4-b${i}`);
+          bEl.style.opacity = bf;
+          bEl.style.transform = `scale(${0.85 + 0.15 * bp})`;
+
+          if (i < 3) {
+            const aw = easeOutCubic(remap(st, 1.25 + i * 0.9, 1.7 + i * 0.9));
+            document.getElementById(`s4-a${i}`).style.width = `${aw * 100}%`;
+          }
+        }
+
+        const barF = smoothFade(st, 4.5, 0.6);
+        document.getElementById('s4-bar').style.opacity = barF;
+
+        const markerPos = 15 + 57 * easeInOutCubic(remap(st, 5.0, 8.5));
+        document.getElementById('s4-marker').style.left = `${markerPos}%`;
+      }
+
+      // SCENE 5 (47 - 60s)
+      if (currentScene.id === 'scene-5') {
+        document.getElementById('s5-title').style.opacity = smoothFade(st, 0.2);
+        for (let i = 0; i < 3; i++) {
+          const p1 = springPop(st, 1.4 + i * 1.1);
+          const f1 = smoothFade(st, 1.4 + i * 1.1, 0.25);
+          const el1 = document.getElementById(`s5-r1-${i}`);
+          el1.style.opacity = f1;
+          el1.style.transform = `scale(${p1})`;
+
+          const p2 = springPop(st, 5.6 + i * 1.4);
+          const f2 = smoothFade(st, 5.6 + i * 1.4, 0.25);
+          const el2 = document.getElementById(`s5-r2-${i}`);
+          el2.style.opacity = f2;
+          el2.style.transform = `scale(${p2})`;
+        }
+      }
+
+      // SCENE 6 (60 - 73s)
+      if (currentScene.id === 'scene-6') {
+        const conv = easeInOutCubic(remap(st, 2.2, 4.2));
+        document.getElementById('s6-arrow').style.opacity = conv;
+        document.getElementById('s6-precis').style.opacity = conv;
+
+        DOTS.forEach((d) => {
+          const dx = Math.cos(d.angle + st * d.speed) * d.radius * (1 - conv);
+          const dy = Math.sin(d.angle + st * d.speed) * (d.radius * 0.6) * (1 - conv);
+          d.el.style.transform = `translate(${dx}px, ${dy}px)`;
+          d.el.style.opacity = (1 - conv * 0.9) * 0.5;
+        });
+
+        const tileP = springPop(st, 3.8, 0.5);
+        const tileF = smoothFade(st, 3.8, 0.35);
+        const tileEl = document.getElementById('s6-tile');
+        tileEl.style.opacity = tileF;
+        tileEl.style.transform = `scale(${tileP})`;
+
+        // 1:08 global = 8s local
+        const qf = smoothFade(st, 8.0, 0.7);
+        const qEl = document.getElementById('s6-quote');
+        qEl.style.opacity = qf;
+        qEl.style.transform = `translateY(${(1 - qf) * 15}px)`;
+      }
+
+      // SCENE 7 (73 - 80s)
+      if (currentScene.id === 'scene-7') {
+        for (let i = 0; i < 3; i++) {
+          // 1.5s apart
+          const rf = smoothFade(st, 0.3 + i * 1.5, 0.5);
+          const rEl = document.getElementById(`s7-r${i}`);
+          rEl.style.opacity = rf;
+          rEl.style.transform = `translateX(${(1 - rf) * -120}px)`;
+        }
+      }
+
+      // SCENE 8 (80 - 90s)
+      if (currentScene.id === 'scene-8') {
+        const qf = smoothFade(st, 0.3, 0.5);
+        document.getElementById('s8-q').style.opacity = qf;
+
+        const pf = smoothFade(st, 1.6, 0.5);
+        const pp = springPop(st, 1.6, 0.5);
+        const pEl = document.getElementById('s8-parlons');
+        pEl.style.opacity = pf;
+        pEl.style.transform = `scale(${0.9 + 0.1 * pp})`;
+
+        // 1:25 global = 5.0s local
+        const uf = smoothFade(st, 5.0, 0.35);
+        const up = springPop(st, 5.0, 0.45);
+        const uEl = document.getElementById('s8-url');
+        uEl.style.opacity = uf;
+        uEl.style.transform = `scale(${up})`;
+
+        document.getElementById('s8-merci').style.opacity = smoothFade(st, 6.5, 0.6);
+      }
+    }
+
+    // --- Playback Engine ---
+    let isPlaying = false;
+    let currentTime = 0;
+    let lastTimestamp = null;
+    const playBtn = document.getElementById('play-btn');
+    const scrubber = document.getElementById('scrubber');
+    const timeDisplay = document.getElementById('time-display');
+    const voAudio = document.getElementById('vo-audio');
+    let hasAudio = false;
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
+    }
+
+    function tick(timestamp) {
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const dt = (timestamp - lastTimestamp) / 1000;
+      lastTimestamp = timestamp;
+
+      if (isPlaying) {
+        if (hasAudio && !voAudio.paused) {
+          currentTime = voAudio.currentTime;
+        } else {
+          currentTime += dt;
+        }
+
+        if (currentTime >= 90) {
+          currentTime = 90;
+          pause();
+        }
+        scrubber.value = currentTime;
+        timeDisplay.textContent = `${formatTime(currentTime)} / 1:30`;
+        renderAtTime(currentTime);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    function play() {
+      if (currentTime >= 90) currentTime = 0;
+      isPlaying = true;
+      lastTimestamp = null;
+      playBtn.textContent = '⏸ Pause';
+      if (hasAudio) {
+        voAudio.currentTime = currentTime;
+        voAudio.play();
+      }
+    }
+
+    function pause() {
+      isPlaying = false;
+      playBtn.textContent = '▶ Play';
+      if (hasAudio) voAudio.pause();
+    }
+
+    playBtn.addEventListener('click', () => (isPlaying ? pause() : play()));
+
+    scrubber.addEventListener('input', (e) => {
+      currentTime = parseFloat(e.target.value);
+      if (hasAudio) voAudio.currentTime = currentTime;
+      timeDisplay.textContent = `${formatTime(currentTime)} / 1:30`;
+      renderAtTime(currentTime);
+    });
+
+    // Load Local VO Audio
+    document.getElementById('audio-input').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        voAudio.src = URL.createObjectURL(file);
+        hasAudio = true;
+        currentTime = 0;
+        play();
+      }
+    });
+
+    // Fullscreen & Auto-hide UI
+    let uiTimeout;
+    document.getElementById('fs-btn').addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    });
+
+    window.addEventListener('mousemove', () => {
+      document.body.classList.remove('hide-ui');
+      clearTimeout(uiTimeout);
+      if (isPlaying) {
+        uiTimeout = setTimeout(() => document.body.classList.add('hide-ui'), 2200);
+      }
+    });
+
+    // Keyboard shortcuts (Space = Play/Pause)
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        isPlaying ? pause() : play();
+      }
+    });
+
+    // Initial render
+    renderAtTime(0);
+    requestAnimationFrame(tick);
+  </script>
+</body>
+</html>

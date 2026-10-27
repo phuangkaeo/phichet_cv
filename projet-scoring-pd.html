@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scoring de probabilité de défaut — Phichet Phuangkaeo</title>
+<meta name="description" content="Pipeline Medallion sur Databricks : de l'API INPI RNE jusqu'à un score de probabilité de défaut par entreprise.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="ready sub">
+
+<div class="bar" id="bar">
+  <div class="bar-id">
+    <a href="index.html" aria-label="Phichet Phuangkaeo, accueil">
+      <img src="photo.jpg" alt="">
+      <span>Phichet Phuangkaeo</span>
+    </a>
+  </div>
+  <div class="lang" role="group" aria-label="Langue">
+    <button id="btn-fr" aria-pressed="true">FR</button><i>/</i><button id="btn-en" aria-pressed="false">EN</button>
+  </div>
+</div>
+
+<div id="app">
+<main class="wrap">
+
+  <div class="page-head">
+    <a class="back" href="index.html#projets"
+       data-fr="Retour aux projets" data-en="Back to the projects">Retour aux projets</a>
+    <h1 data-fr="Scoring de probabilité de défaut" data-en="Probability-of-default scoring">Scoring de probabilité de défaut</h1>
+    <p class="sub"
+           data-fr="Un pipeline Medallion sur des entreprises du Nord, de l'extraction API jusqu'au score de risque."
+           data-en="A Medallion pipeline on companies in the Nord region, from API extraction to a risk score.">Un pipeline Medallion sur des entreprises du Nord, de l'extraction API jusqu'au score de risque.</p>
+    <div class="tags">
+          <span class="tag">Databricks</span><span class="tag">PySpark</span><span class="tag">Python</span>
+          <span class="tag">SQL</span><span class="tag">Unity Catalog</span><span class="tag">API INPI RNE</span>
+        </div>
+  </div>
+
+  <div class="body-block">
+    <div class="s-name" data-fr="Le projet" data-en="The project">Le projet</div>
+    <div class="s-body">
+
+        <div class="pipeline" id="pipeline">
+          <div class="stage"><div class="s-step">Bronze</div>
+            <div class="s-what" data-fr="Extraction brute de l'API" data-en="Raw API extraction">Extraction brute de l'API</div></div>
+          <div class="stage"><div class="s-step">Silver</div>
+            <div class="s-what" data-fr="Schémas séparés par secteur" data-en="Schemas split by sector">Schémas séparés par secteur</div></div>
+          <div class="stage gold"><div class="s-step">Gold</div>
+            <div class="s-what" data-fr="Score de défaut par entreprise" data-en="Default score per company">Score de défaut par entreprise</div></div>
+        </div>
+
+        <div class="nums countup">
+          <div class="num"><div class="n" data-count="16">0</div>
+            <div class="c" data-fr="entreprises analysées" data-en="companies analysed">entreprises analysées</div></div>
+          <div class="num"><div class="n" data-count="5">0</div>
+            <div class="c" data-fr="secteurs couverts" data-en="sectors covered">secteurs couverts</div></div>
+          <div class="num"><div class="n" data-count="3" data-suffix="%">0</div>
+            <div class="c" data-fr="probabilité moyenne (exemple)" data-en="average probability (sample)">probabilité moyenne (exemple)</div></div>
+        </div>
+
+        <div class="chart-head" data-fr="Entreprises par secteur" data-en="Companies by sector">Entreprises par secteur</div>
+        <div class="chartblock">
+          <div class="row"><span data-fr="Industrie" data-en="Industry">Industrie</span>
+            <span class="track"><span class="fill" data-pct="100"></span></span><span class="val">5</span></div>
+          <div class="row"><span data-fr="Commerce" data-en="Retail">Commerce</span>
+            <span class="track"><span class="fill" data-pct="80"></span></span><span class="val">4</span></div>
+          <div class="row"><span data-fr="Services" data-en="Services">Services</span>
+            <span class="track"><span class="fill" data-pct="60"></span></span><span class="val">3</span></div>
+          <div class="row"><span data-fr="Assurance" data-en="Insurance">Assurance</span>
+            <span class="track"><span class="fill" data-pct="40"></span></span><span class="val">2</span></div>
+          <div class="row"><span data-fr="Transport" data-en="Transport">Transport</span>
+            <span class="track"><span class="fill" data-pct="40"></span></span><span class="val">2</span></div>
+        </div>
+        <p class="note"
+           data-fr="Données d'exemple, les résultats réels ne sont pas publiés."
+           data-en="Sample data, the real results are not published.">Données d'exemple, les résultats réels ne sont pas publiés.</p>
+
+        <ul class="points">
+          <li data-fr="Extraction automatisée de l'API INPI RNE en Python, avec repli sur Pappers.fr quand le registre ne couvre pas l'entité."
+              data-en="Automated extraction from the INPI RNE API in Python, falling back to Pappers.fr when the registry does not cover an entity.">Extraction automatisée de l'API INPI RNE en Python, avec repli sur Pappers.fr quand le registre ne couvre pas l'entité.</li>
+          <li data-fr="Schémas Silver séparés pour les assureurs, dont la structure comptable (Code des assurances) ne rentrait pas dans le même modèle que le PCG."
+              data-en="Separate Silver schemas for insurers, whose accounting structure (Code des assurances) would not fit the same model as the general chart of accounts.">Schémas Silver séparés pour les assureurs, dont la structure comptable (Code des assurances) ne rentrait pas dans le même modèle que le PCG.</li>
+        </ul>
+
+    </div>
+  </div>
+
+  <div class="next">
+    <a href="index.html#projets" data-fr="Retour aux projets" data-en="Back to the projects">Retour aux projets</a>
+    <a href="projet-rfm.html" data-fr="Projet suivant : segmentation client RFM" data-en="Next project: RFM customer segmentation">Projet suivant : segmentation client RFM</a>
+  </div>
+
+  <footer>Phichet Phuangkaeo, Lille, 2026</footer>
+</main>
+</div>
+
+<script src="script.js" defer></script>
+</body>
+</html>

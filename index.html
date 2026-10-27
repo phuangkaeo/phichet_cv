@@ -4,617 +4,314 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Phichet Phuangkaeo — Stage Data / BI</title>
-<meta name="description" content="Phichet Phuangkaeo — étudiant M1 MIADS (IAE Lille), recherche un stage Data / Business Intelligence de 4 à 6 mois.">
-<style>
-  :root{
-    --bg:#F7F6F2;
-    --navy:#132743;
-    --navy-soft:#48566b;
-    --teal:#0E8B86;
-    --amber:#E39A10;
-    --line:#dcd9d1;
-    --card:#ffffff;
-    --radius:14px;
-  }
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{
-    margin:0;background:var(--bg);color:var(--navy);
-    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    line-height:1.6;-webkit-font-smoothing:antialiased;
-  }
-  .wrap{max-width:860px;margin:0 auto;padding:0 20px}
-
-  /* ---------- header ---------- */
-  header{
-    position:fixed;top:0;left:0;right:0;height:64px;z-index:60;
-    display:flex;align-items:center;justify-content:space-between;
-    padding:0 20px;background:rgba(247,246,242,0);border-bottom:1px solid transparent;
-    transition:background .35s ease,border-color .35s ease;
-    backdrop-filter:blur(8px);
-  }
-  header.stuck{background:rgba(247,246,242,.92);border-bottom-color:var(--line)}
-  .header-name{
-    font-weight:650;font-size:15px;letter-spacing:.2px;
-    opacity:0;transform:translateY(-6px);transition:opacity .35s ease,transform .35s ease;
-    padding-left:64px;
-  }
-  header.stuck .header-name{opacity:1;transform:none}
-  .lang{display:flex;gap:2px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px}
-  .lang button{
-    border:0;background:transparent;color:var(--navy-soft);font:inherit;font-size:13px;font-weight:600;
-    padding:4px 12px;border-radius:999px;cursor:pointer;transition:background .2s,color .2s;
-  }
-  .lang button[aria-pressed="true"]{background:var(--teal);color:#fff}
-
-  /* ---------- photo: hero -> avatar ---------- */
-  #photo{
-    position:fixed;z-index:70;
-    top:120px;left:50%;width:208px;height:208px;transform:translateX(-50%);
-    border-radius:50%;object-fit:cover;object-position:50% 18%;
-    border:4px solid #fff;box-shadow:0 14px 40px rgba(19,39,67,.18);
-    transition:top .5s cubic-bezier(.4,0,.2,1),left .5s cubic-bezier(.4,0,.2,1),
-               width .5s cubic-bezier(.4,0,.2,1),height .5s cubic-bezier(.4,0,.2,1),
-               transform .5s cubic-bezier(.4,0,.2,1),border-width .5s ease,box-shadow .5s ease;
-  }
-  #photo.mini{
-    top:12px;left:20px;width:40px;height:40px;transform:none;
-    border-width:2px;box-shadow:0 2px 8px rgba(19,39,67,.16);
-  }
-
-  /* ---------- hero ---------- */
-  .hero{padding:356px 0 72px;text-align:center}
-  .hero h1{font-size:clamp(30px,6vw,44px);line-height:1.15;margin:0 0 6px;letter-spacing:-.5px}
-  .hero .role{color:var(--teal);font-weight:650;font-size:clamp(15px,2.6vw,18px);margin:0 0 18px}
-  .pitch{max-width:560px;margin:0 auto 10px;color:var(--navy-soft)}
-  .avail{
-    display:inline-block;margin-top:6px;background:#fff;border:1px solid var(--line);
-    border-radius:999px;padding:7px 16px;font-size:14px;font-weight:600;
-  }
-  .avail .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--teal);margin-right:8px}
-  .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
-  .btn{
-    display:inline-block;padding:12px 22px;border-radius:999px;text-decoration:none;
-    font-weight:650;font-size:15px;transition:transform .2s ease,box-shadow .2s ease,background .2s;
-  }
-  .btn-primary{background:var(--teal);color:#fff;box-shadow:0 6px 18px rgba(14,139,134,.28)}
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(14,139,134,.34)}
-  .btn-ghost{background:transparent;color:var(--navy);border:1.5px solid var(--line)}
-  .btn-ghost:hover{border-color:var(--navy);transform:translateY(-2px)}
-
-  /* ---------- counters ---------- */
-  .counters{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0 0 84px}
-  .counter{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 14px;text-align:center}
-  .counter .num{font-size:30px;font-weight:720;color:var(--amber);line-height:1.1;font-variant-numeric:tabular-nums}
-  .counter .lbl{font-size:13px;color:var(--navy-soft);margin-top:6px}
-
-  /* ---------- sections ---------- */
-  section{margin-bottom:84px}
-  h2{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--navy-soft);font-weight:700;margin:0 0 22px}
-  h3{font-size:20px;margin:0 0 4px;letter-spacing:-.2px}
-
-  /* ---------- project ---------- */
-  .project{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px}
-  .tags{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 24px}
-  .tag{font-size:12px;font-weight:600;color:var(--navy-soft);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 11px}
-  .pipeline{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:26px}
-  .stage{
-    flex:1;min-width:120px;border-radius:10px;padding:14px 12px;text-align:center;
-    border:1.5px solid var(--line);background:var(--bg);
-    opacity:.35;transform:translateY(8px);transition:all .5s ease;
-  }
-  .stage.on{opacity:1;transform:none}
-  .stage.bronze.on{border-color:#B07A3C;box-shadow:inset 0 0 0 2px rgba(176,122,60,.12)}
-  .stage.silver.on{border-color:#8C98A6;box-shadow:inset 0 0 0 2px rgba(140,152,166,.12)}
-  .stage.gold.on{border-color:var(--amber);box-shadow:inset 0 0 0 2px rgba(227,154,16,.14)}
-  .stage .s-name{font-weight:700;font-size:14px}
-  .stage .s-desc{font-size:12px;color:var(--navy-soft);margin-top:3px}
-  .arrow{color:var(--line);font-size:18px;opacity:0;transition:opacity .5s ease}
-  .arrow.on{opacity:1}
-  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-  .kpi{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px;text-align:center}
-  .kpi .k-num{font-size:24px;font-weight:720;color:var(--amber);font-variant-numeric:tabular-nums}
-  .kpi .k-lbl{font-size:12px;color:var(--navy-soft);margin-top:2px}
-  .chart-title{font-size:14px;font-weight:650;margin-bottom:12px}
-  .bar-row{display:grid;grid-template-columns:110px 1fr 28px;align-items:center;gap:10px;margin-bottom:9px;font-size:13px}
-  .bar-track{background:var(--bg);border-radius:6px;height:22px;overflow:hidden}
-  .bar-fill{height:100%;width:0;background:var(--amber);border-radius:6px;transition:width 1s cubic-bezier(.3,0,.2,1)}
-  .bar-val{text-align:right;color:var(--navy-soft);font-variant-numeric:tabular-nums}
-  .sample-note{font-size:12px;color:var(--navy-soft);margin-top:14px;font-style:italic}
-  .bullets{margin:0;padding-left:18px;color:var(--navy-soft);font-size:15px}
-  .bullets li{margin-bottom:6px}
-  .project + .project{margin-top:18px}
-  .shots{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0 4px}
-  .shot{margin:0}
-  .shot img{width:100%;display:block;border:1px solid var(--line);border-radius:10px;background:#fff}
-  .shot figcaption{font-size:12px;color:var(--navy-soft);margin-top:6px}
-  .shot.wide{grid-column:1/-1}
-
-  /* ---------- timeline ---------- */
-  .timeline{position:relative;padding-left:26px}
-  .timeline::before{
-    content:"";position:absolute;left:5px;top:4px;width:2px;height:0;background:var(--teal);
-    opacity:.45;transition:height 1.4s ease;
-  }
-  .timeline.drawn::before{height:calc(100% - 10px)}
-  .tl-item{position:relative;margin-bottom:28px}
-  .tl-item::before{
-    content:"";position:absolute;left:-26px;top:7px;width:12px;height:12px;border-radius:50%;
-    background:var(--bg);border:2.5px solid var(--teal);
-  }
-  .tl-when{font-size:12.5px;font-weight:650;color:var(--teal);letter-spacing:.3px}
-  .tl-role{font-weight:650;font-size:16px;margin-top:1px}
-  .tl-org{font-size:14px;color:var(--navy-soft)}
-  .tl-note{font-size:14px;color:var(--navy-soft);margin-top:5px}
-
-  /* ---------- skills / education ---------- */
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
-  .card h4{margin:0 0 8px;font-size:14px;color:var(--teal);letter-spacing:.2px}
-  .card p{margin:0;font-size:14px;color:var(--navy-soft)}
-  .edu-item{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
-  .edu-item:last-child{border-bottom:0}
-  .edu-when{font-size:13px;color:var(--navy-soft);white-space:nowrap}
-  .edu-what{font-weight:600;font-size:15px}
-  .edu-where{font-size:13.5px;color:var(--navy-soft)}
-  .langs{display:flex;gap:12px;flex-wrap:wrap}
-  .lang-chip{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:14px 18px;flex:1;min-width:150px}
-  .lang-chip b{display:block;font-size:15px}
-  .lang-chip span{font-size:13px;color:var(--navy-soft)}
-
-  /* ---------- contact ---------- */
-  .contact{text-align:center;background:var(--navy);color:#fff;border-radius:var(--radius);padding:44px 24px}
-  .contact h3{color:#fff;font-size:24px;margin-bottom:8px}
-  .contact p{color:#b9c4d2;margin:0 0 22px;font-size:15px}
-  .contact .btn-primary{box-shadow:none}
-  .links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:22px;font-size:14px}
-  .links a{color:#b9c4d2;text-decoration:none;border-bottom:1px solid rgba(185,196,210,.35)}
-  .links a:hover{color:#fff}
-  footer{text-align:center;font-size:13px;color:var(--navy-soft);padding:30px 0 50px}
-
-  /* ---------- reveal ---------- */
-  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s ease}
-  .reveal.in{opacity:1;transform:none}
-
-  @media (max-width:640px){
-    .hero{padding:300px 0 56px}
-    #photo{top:104px;width:168px;height:168px}
-    .counters{grid-template-columns:1fr 1fr}
-    .grid2{grid-template-columns:1fr}
-    .kpis{grid-template-columns:1fr}
-    .bar-row{grid-template-columns:92px 1fr 26px;font-size:12.5px}
-    .shots{grid-template-columns:1fr}
-  }
-  @media (prefers-reduced-motion:reduce){
-    html{scroll-behavior:auto}
-    *{transition:none !important;animation:none !important}
-    .reveal{opacity:1;transform:none}
-    .stage{opacity:1;transform:none}
-    .arrow{opacity:1}
-    .timeline::before{height:calc(100% - 10px)}
-  }
-</style>
+<meta name="description" content="Phichet Phuangkaeo — étudiant M1 MIADS (IAE Lille), recherche un stage Data / Business Intelligence de 4 à 6 mois dans la métropole lilloise.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<header id="header">
-  <div class="header-name" data-fr="Phichet Phuangkaeo" data-en="Phichet Phuangkaeo">Phichet Phuangkaeo</div>
-  <div class="lang" role="group" aria-label="Language">
-    <button id="btn-fr" aria-pressed="true">FR</button>
-    <button id="btn-en" aria-pressed="false">EN</button>
+<div class="bar" id="bar">
+  <div class="bar-id">
+    <img src="photo.jpg" alt="">
+    <span>Phichet Phuangkaeo</span>
   </div>
-</header>
+  <div class="lang" role="group" aria-label="Langue">
+    <button id="btn-fr" aria-pressed="true">FR</button><i>/</i><button id="btn-en" aria-pressed="false">EN</button>
+  </div>
+</div>
 
-<img id="photo" src="photo.jpg" alt="Phichet Phuangkaeo">
+<div class="backdrop" aria-hidden="true"></div>
 
-<main>
-<div class="wrap">
+<div id="app">
+<main class="wrap">
 
   <!-- HERO -->
   <div class="hero">
-    <h1>Phichet Phuangkaeo</h1>
-    <p class="role"
-       data-fr="Étudiant M1 MIADS — IAE Lille, Université de Lille"
-       data-en="M1 MIADS student — IAE Lille, University of Lille">Étudiant M1 MIADS — IAE Lille, Université de Lille</p>
-    <p class="pitch"
-       data-fr="Je cherche un stage en Data / Business Intelligence pour mettre en pratique Power BI, SQL et Python dans une équipe, et développer mes compétences en IA et data science."
-       data-en="I am looking for a Data / Business Intelligence internship, to put Power BI, SQL and Python to work inside a team while growing into AI and data science.">Je cherche un stage en Data / Business Intelligence pour mettre en pratique Power BI, SQL et Python dans une équipe, et développer mes compétences en IA et data science.</p>
-    <div class="avail"><span class="dot"></span><span
-       data-fr="Stage conventionné 4 à 6 mois · 3 jours/semaine (lundi–mercredi) · Lille (59)"
-       data-en="4–6 month internship · 3 days a week (Mon–Wed) · Lille, France">Stage conventionné 4 à 6 mois · 3 jours/semaine (lundi–mercredi) · Lille (59)</span></div>
-    <div class="cta">
-      <a class="btn btn-primary" href="mailto:phichet.phuangkaeo@outlook.com"
+    <div class="hero-grid">
+      <div>
+        <p class="role lift" id="role" data-fr="Analyste data et business intelligence"
+           data-en="Data and business intelligence analyst">Analyste data et business intelligence</p>
+        <h1 class="split"><span class="w">Phichet</span><span class="l2"><span class="w">Phuangkaeo</span></span></h1>
+        <p class="lead lift" id="lead"
+           data-fr="Je transforme un besoin flou en indicateur précis : clair, suivi, utilisé."
+           data-en="I turn a vague need into a precise indicator: clear, tracked, actually used.">Je transforme un besoin flou en indicateur précis : clair, suivi, utilisé.</p>
+      </div>
+      <img class="portrait" id="portrait" src="photo.jpg" alt="Phichet Phuangkaeo">
+    </div>
+
+    <div class="trend" id="trend" aria-hidden="true">
+      <svg focusable="false"></svg>
+    </div>
+
+    <div class="actions">
+      <a class="btn btn-main" href="mailto:phichet.phuangkaeo@outlook.com"
          data-fr="Me contacter" data-en="Get in touch">Me contacter</a>
-      <a class="btn btn-ghost" href="cv-phichet-phuangkaeo.pdf" download
-         data-fr="Télécharger le CV (PDF)" data-en="Download CV (PDF)">Télécharger le CV (PDF)</a>
+      <a class="btn btn-plain" href="presentation.html"
+         data-fr="Présentation, 90 secondes" data-en="Presentation, 90 seconds">Présentation, 90 secondes</a>
+      <a class="btn btn-plain" href="cv-phichet-phuangkaeo.pdf" download
+         data-fr="Télécharger le CV" data-en="Download the CV">Télécharger le CV</a>
     </div>
   </div>
 
-  <!-- COUNTERS -->
-  <div class="counters reveal">
-    <div class="counter"><div class="num" data-count="300">0</div>
-      <div class="lbl" data-fr="Certification Microsoft PL-300" data-en="Microsoft PL-300 certified">Certification Microsoft PL-300</div></div>
-    <div class="counter"><div class="num" data-count="3">0</div>
-      <div class="lbl" data-fr="Langues de travail : thaï, anglais, français" data-en="Working languages: Thai, English, French">Langues de travail : thaï, anglais, français</div></div>
-    <div class="counter"><div class="num" data-count="3">0</div>
-      <div class="lbl" data-fr="Cultures professionnelles : thaïe, japonaise, française" data-en="Work cultures: Thai, Japanese, French">Cultures professionnelles : thaïe, japonaise, française</div></div>
-    <div class="counter"><div class="num" data-count="7">0</div>
-      <div class="lbl" data-fr="Titre RNCP niveau 7 (bac+5)" data-en="RNCP level 7 title (master's level)">Titre RNCP niveau 7 (bac+5)</div></div>
+  <div class="facts">
+      <dl>
+        <dt data-fr="Recherche" data-en="Looking for">Recherche</dt>
+        <dd data-fr="Stage conventionné, 4 à 6 mois" data-en="Internship agreement, 4 to 6 months">Stage conventionné, 4 à 6 mois</dd>
+      </dl>
+      <dl>
+        <dt data-fr="Rythme" data-en="Pattern">Rythme</dt>
+        <dd data-fr="3 jours par semaine, du lundi au mercredi" data-en="3 days a week, Monday to Wednesday">3 jours par semaine, du lundi au mercredi</dd>
+      </dl>
+      <dl>
+        <dt data-fr="Lieu" data-en="Where">Lieu</dt>
+        <dd data-fr="Métropole lilloise" data-en="Lille metropolitan area">Métropole lilloise</dd>
+      </dl>
+      <dl>
+        <dt data-fr="Formation" data-en="Studying">Formation</dt>
+        <dd data-fr="M1 MIADS, IAE Lille" data-en="M1 MIADS, IAE Lille">M1 MIADS, IAE Lille</dd>
+      </dl>
   </div>
 
-  <!-- PROJECT -->
-  <section id="projet">
-    <h2 data-fr="Projets data" data-en="Data projects">Projets data</h2>
-    <div class="project reveal">
-      <h3 data-fr="Scoring de probabilité de défaut (PD)" data-en="Probability of default (PD) scoring">Scoring de probabilité de défaut (PD)</h3>
-      <p style="margin:4px 0 0;color:var(--navy-soft);font-size:15px"
-         data-fr="Pipeline Medallion sur des entreprises du Nord, de l'extraction API jusqu'au score de risque."
-         data-en="A Medallion pipeline on companies in the Nord region, from API extraction through to a risk score.">Pipeline Medallion sur des entreprises du Nord, de l'extraction API jusqu'au score de risque.</p>
-      <div class="tags">
-        <span class="tag">Databricks</span><span class="tag">PySpark</span><span class="tag">Python</span>
-        <span class="tag">SQL</span><span class="tag">Unity Catalog</span><span class="tag">API INPI RNE</span>
-      </div>
+  <!-- PROJECTS -->
+  <section id="projets">
+    <div class="s-name" data-fr="Projets" data-en="Projects">Projets</div>
+    <div class="s-body">
 
-      <div class="pipeline" id="pipeline">
-        <div class="stage bronze"><div class="s-name">Bronze</div>
-          <div class="s-desc" data-fr="Extraction brute API" data-en="Raw API extraction">Extraction brute API</div></div>
-        <div class="arrow">→</div>
-        <div class="stage silver"><div class="s-name">Silver</div>
-          <div class="s-desc" data-fr="Schémas séparés par secteur" data-en="Schemas split by sector">Schémas séparés par secteur</div></div>
-        <div class="arrow">→</div>
-        <div class="stage gold"><div class="s-name">Gold</div>
-          <div class="s-desc" data-fr="Score PD par entreprise" data-en="PD score per company">Score PD par entreprise</div></div>
-      </div>
+      <a class="psum" href="projet-scoring-pd.html">
+        <h3 data-fr="Scoring de probabilité de défaut" data-en="Probability-of-default scoring">Scoring de probabilité de défaut</h3>
+        <p class="sub"
+           data-fr="Un pipeline Medallion sur des entreprises du Nord, de l'extraction API jusqu'au score de risque."
+           data-en="A Medallion pipeline on companies in the Nord region, from API extraction to a risk score.">Un pipeline Medallion sur des entreprises du Nord, de l'extraction API jusqu'au score de risque.</p>
+        <div class="tags">
+          <span class="tag">Databricks</span><span class="tag">PySpark</span><span class="tag">Python</span>
+          <span class="tag">SQL</span><span class="tag">Unity Catalog</span><span class="tag">API INPI RNE</span>
+        </div>
+        <div class="nums countup">
+          <div class="num"><div class="n" data-count="16">0</div>
+            <div class="c" data-fr="entreprises analysées" data-en="companies analysed">entreprises analysées</div></div>
+          <div class="num"><div class="n" data-count="5">0</div>
+            <div class="c" data-fr="secteurs couverts" data-en="sectors covered">secteurs couverts</div></div>
+          <div class="num"><div class="n" data-count="3" data-suffix="%">0</div>
+            <div class="c" data-fr="probabilité moyenne (exemple)" data-en="average probability (sample)">probabilité moyenne (exemple)</div></div>
+        </div>
+        <p class="more" data-fr="Voir le projet" data-en="See the project">Voir le projet</p>
+      </a>
 
-      <div class="kpis" id="kpis">
-        <div class="kpi"><div class="k-num" data-count="16">0</div>
-          <div class="k-lbl" data-fr="Entreprises analysées" data-en="Companies analysed">Entreprises analysées</div></div>
-        <div class="kpi"><div class="k-num" data-count="5">0</div>
-          <div class="k-lbl" data-fr="Secteurs couverts" data-en="Sectors covered">Secteurs couverts</div></div>
-        <div class="kpi"><div class="k-num" data-count="3" data-suffix="%">0</div>
-          <div class="k-lbl" data-fr="PD moyenne (exemple)" data-en="Average PD (sample)">PD moyenne (exemple)</div></div>
-      </div>
+      <a class="psum" href="projet-rfm.html">
+        <h3 data-fr="Segmentation client RFM" data-en="RFM customer segmentation">Segmentation client RFM</h3>
+        <p class="sub"
+           data-fr="Une application R / Shiny sur le comportement d'achat e-commerce, du nettoyage des données jusqu'à la restitution Power BI."
+           data-en="An R / Shiny application on e-commerce purchase behaviour, from data cleansing to Power BI reporting.">Une application R / Shiny sur le comportement d'achat e-commerce, du nettoyage des données jusqu'à la restitution Power BI.</p>
+        <div class="tags">
+          <span class="tag">R</span><span class="tag">Shiny</span><span class="tag">dplyr</span>
+          <span class="tag">ggplot2</span><span class="tag">randomForest</span><span class="tag">Power BI</span>
+        </div>
+        <div class="nums countup">
+          <div class="num"><div class="n" data-count="24399">0</div>
+            <div class="c" data-fr="clients segmentés" data-en="customers segmented">clients segmentés</div></div>
+          <div class="num"><div class="n" data-count="6">0</div>
+            <div class="c" data-fr="segments RFM" data-en="RFM segments">segments RFM</div></div>
+          <div class="num"><div class="n" data-count="28" data-suffix="%">0</div>
+            <div class="c" data-fr="du panier à l'achat" data-en="cart to purchase">du panier à l'achat</div></div>
+        </div>
+        <p class="more" data-fr="Voir le projet" data-en="See the project">Voir le projet</p>
+      </a>
 
-      <div class="chart-title" data-fr="Répartition des entreprises par secteur" data-en="Companies by sector">Répartition des entreprises par secteur</div>
-      <div id="chart">
-        <div class="bar-row"><span data-fr="Industrie" data-en="Industry">Industrie</span>
-          <span class="bar-track"><span class="bar-fill" data-pct="100"></span></span><span class="bar-val">5</span></div>
-        <div class="bar-row"><span data-fr="Commerce" data-en="Retail">Commerce</span>
-          <span class="bar-track"><span class="bar-fill" data-pct="80"></span></span><span class="bar-val">4</span></div>
-        <div class="bar-row"><span data-fr="Services" data-en="Services">Services</span>
-          <span class="bar-track"><span class="bar-fill" data-pct="60"></span></span><span class="bar-val">3</span></div>
-        <div class="bar-row"><span data-fr="Assurance" data-en="Insurance">Assurance</span>
-          <span class="bar-track"><span class="bar-fill" data-pct="40"></span></span><span class="bar-val">2</span></div>
-        <div class="bar-row"><span data-fr="Transport" data-en="Transport">Transport</span>
-          <span class="bar-track"><span class="bar-fill" data-pct="40"></span></span><span class="bar-val">2</span></div>
-      </div>
-      <p class="sample-note"
-         data-fr="Données d'exemple — les résultats réels ne sont pas publiés."
-         data-en="Sample data — real results are not published.">Données d'exemple — les résultats réels ne sont pas publiés.</p>
-
-      <ul class="bullets" style="margin-top:18px">
-        <li data-fr="Extraction automatisée de l'API INPI RNE en Python, avec repli sur Pappers.fr quand le registre ne couvre pas l'entité."
-            data-en="Automated extraction from the INPI RNE API in Python, falling back to Pappers.fr when the registry does not cover an entity.">Extraction automatisée de l'API INPI RNE en Python, avec repli sur Pappers.fr quand le registre ne couvre pas l'entité.</li>
-        <li data-fr="Schémas Silver séparés pour les assureurs (Code des assurances vs PCG) : la structure comptable ne rentrait pas dans un modèle unique."
-            data-en="Separate Silver schemas for insurers (Code des assurances vs PCG): their accounting structure would not fit a single model.">Schémas Silver séparés pour les assureurs (Code des assurances vs PCG) : la structure comptable ne rentrait pas dans un modèle unique.</li>
-      </ul>
-    </div>
-
-    <div class="project reveal" style="margin-top:18px">
-      <h3 data-fr="Segmentation client RFM — application R / Shiny" data-en="RFM customer segmentation — R / Shiny application">Segmentation client RFM — application R / Shiny</h3>
-      <p style="margin:4px 0 0;color:var(--navy-soft);font-size:15px"
-         data-fr="Application d'analyse du comportement d'achat e-commerce : nettoyage des données, segmentation RFM et restitution Power BI."
-         data-en="An e-commerce purchase-behaviour application: data cleansing, RFM segmentation and Power BI reporting.">Application d'analyse du comportement d'achat e-commerce : nettoyage des données, segmentation RFM et restitution Power BI.</p>
-      <div class="tags">
-        <span class="tag">R</span><span class="tag">Shiny</span><span class="tag">dplyr</span>
-        <span class="tag">ggplot2</span><span class="tag">randomForest</span><span class="tag">Power BI</span>
-      </div>
-
-      <div class="kpis" id="kpis2">
-        <div class="kpi"><div class="k-num" data-count="24399">0</div>
-          <div class="k-lbl" data-fr="Clients segmentés" data-en="Customers segmented">Clients segmentés</div></div>
-        <div class="kpi"><div class="k-num" data-count="6">0</div>
-          <div class="k-lbl" data-fr="Segments RFM" data-en="RFM segments">Segments RFM</div></div>
-        <div class="kpi"><div class="k-num" data-count="28" data-suffix="%">0</div>
-          <div class="k-lbl" data-fr="Panier → achat" data-en="Cart → purchase">Panier → achat</div></div>
-      </div>
-
-      <div class="chart-title" data-fr="Répartition des clients par segment" data-en="Customers by segment">Répartition des clients par segment</div>
-      <div id="chart2">
-        <div class="bar-row"><span data-fr="Autres" data-en="Others">Autres</span>
-          <span class="bar-track"><span class="bar-fill" data-pct="100"></span></span><span class="bar-val">7982</span></div>
-        <div class="bar-row"><span data-fr="Loyalistes pot." data-en="Potential loyal.">Loyalistes pot.</span>
-          <span class="bar-track"><span class="bar-fill" data-pct="69"></span></span><span class="bar-val">5517</span></div>
-        <div class="bar-row"><span data-fr="À risque" data-en="At risk">À risque</span>
-          <span class="bar-track"><span class="bar-fill" data-pct="56"></span></span><span class="bar-val">4455</span></div>
-        <div class="bar-row"><span data-fr="Clients fidèles" data-en="Loyal customers">Clients fidèles</span>
-          <span class="bar-track"><span class="bar-fill" data-pct="54"></span></span><span class="bar-val">4298</span></div>
-        <div class="bar-row"><span data-fr="Perdus" data-en="Lost">Perdus</span>
-          <span class="bar-track"><span class="bar-fill" data-pct="21"></span></span><span class="bar-val">1645</span></div>
-        <div class="bar-row"><span data-fr="Champions" data-en="Champions">Champions</span>
-          <span class="bar-track"><span class="bar-fill" data-pct="6"></span></span><span class="bar-val">502</span></div>
-      </div>
-      <p class="sample-note"
-         data-fr="Résultats réels de l'application, sur le jeu de données d'un client fictif (« Amazing »)."
-         data-en="Actual output of the application, on the dataset of a fictional client (&quot;Amazing&quot;).">Résultats réels de l'application, sur le jeu de données d'un client fictif (« Amazing »).</p>
-
-      <div class="shots">
-        <figure class="shot wide">
-          <img src="shiny-kpis.png" loading="lazy"
-               alt="Page Data Visualization de l'application Shiny : indicateurs et graphiques">
-          <figcaption data-fr="Page Data Visualization : indicateurs clés et distribution des événements."
-                      data-en="Data Visualization page: key indicators and event distribution.">Page Data Visualization : indicateurs clés et distribution des événements.</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="shiny-rfm.png" loading="lazy"
-               alt="Tableau d'interprétation RFM par segment">
-          <figcaption data-fr="Interprétation RFM : récence, fréquence et panier moyen par segment."
-                      data-en="RFM interpretation: recency, frequency and average basket per segment.">Interprétation RFM : récence, fréquence et panier moyen par segment.</figcaption>
-        </figure>
-        <figure class="shot">
-          <img src="shiny-segments.png" loading="lazy"
-               alt="Contribution monétaire moyenne par segment client">
-          <figcaption data-fr="Contribution monétaire moyenne par segment."
-                      data-en="Average monetary contribution per segment.">Contribution monétaire moyenne par segment.</figcaption>
-        </figure>
-      </div>
-
-      <ul class="bullets" style="margin-top:18px">
-        <li data-fr="Entonnoir vue → panier → achat : 19,3 M de vues pour 0,34 M d'achats, soit 1,8 % de conversion — le point de fuite se situe avant la mise au panier."
-            data-en="View → cart → purchase funnel: 19.3M views for 0.34M purchases, a 1.8% conversion rate — the drop-off happens before the cart.">Entonnoir vue → panier → achat : 19,3 M de vues pour 0,34 M d'achats, soit 1,8 % de conversion — le point de fuite se situe avant la mise au panier.</li>
-        <li data-fr="Les 502 Champions dépensent en moyenne 768 contre 157 pour le segment « Autres », soit près de 5 fois plus : une cible de fidélisation prioritaire."
-            data-en="The 502 Champions spend 768 on average against 157 for the &quot;Others&quot; segment, nearly five times more: a priority retention target.">Les 502 Champions dépensent en moyenne 768 contre 157 pour le segment « Autres », soit près de 5 fois plus : une cible de fidélisation prioritaire.</li>
-      </ul>
-
-      <div class="chart-title" style="margin-top:26px"
-           data-fr="Modèle de prédiction d'achat (random forest)" data-en="Purchase-prediction model (random forest)">Modèle de prédiction d'achat (random forest)</div>
-      <div class="kpis" id="kpis3">
-        <div class="kpi"><div class="k-num" data-count="0.36" data-dec="2">0.00</div>
-          <div class="k-lbl" data-fr="Score F1" data-en="F1 score">Score F1</div></div>
-        <div class="kpi"><div class="k-num" data-count="1" data-dec="2">0.00</div>
-          <div class="k-lbl" data-fr="Rappel" data-en="Recall">Rappel</div></div>
-        <div class="kpi"><div class="k-num" data-count="0.22" data-dec="2">0.00</div>
-          <div class="k-lbl" data-fr="Précision" data-en="Precision">Précision</div></div>
-      </div>
-      <ul class="bullets">
-        <li data-fr="Les achats représentent environ 1 % des sessions : un modèle qui répondrait toujours « pas d'achat » atteindrait déjà 98,6 % d'exactitude. C'est pourquoi le tableau de bord affiche l'exactitude à côté de cette référence, et retient le F1 comme métrique principale."
-            data-en="Purchases are about 1% of sessions: a model always answering &quot;no purchase&quot; would already reach 98.6% accuracy. The dashboard therefore shows accuracy next to that baseline and keeps F1 as the headline metric.">Les achats représentent environ 1 % des sessions : un modèle qui répondrait toujours « pas d'achat » atteindrait déjà 98,6 % d'exactitude. C'est pourquoi le tableau de bord affiche l'exactitude à côté de cette référence, et retient le F1 comme métrique principale.</li>
-        <li data-fr="À 95,0 %, le modèle reste sous cette référence : il n'apporte pas encore de gain prédictif réel. Une première version atteignait 99,98 % grâce à des variables qui contenaient déjà la réponse ; elles ont été retirées et le diagnostic se poursuit."
-            data-en="At 95.0% it stays below that baseline, so it brings no real predictive gain yet. An earlier version reached 99.98% thanks to features that already contained the answer; those were removed and the diagnosis is ongoing.">À 95,0 %, le modèle reste sous cette référence : il n'apporte pas encore de gain prédictif réel. Une première version atteignait 99,98 % grâce à des variables qui contenaient déjà la réponse ; elles ont été retirées et le diagnostic se poursuit.</li>
-      </ul>
     </div>
   </section>
 
-  <!-- TIMELINE -->
+  <!-- EXPERIENCE -->
   <section id="parcours">
-    <h2 data-fr="Parcours professionnel" data-en="Experience">Parcours professionnel</h2>
-    <div class="timeline" id="timeline">
-      <div class="tl-item reveal">
-        <div class="tl-when">2016 – 2018 · Bangkok</div>
-        <div class="tl-role" data-fr="Formateur BI &amp; technique" data-en="BI &amp; technical trainer">Formateur BI &amp; technique</div>
-        <div class="tl-org">Siam Piwat Retail</div>
-        <div class="tl-note" data-fr="Formation des utilisateurs sur Tableau et SAP Data Services."
-             data-en="User training on Tableau and SAP Data Services.">Formation des utilisateurs sur Tableau et SAP Data Services.</div>
+    <div class="s-name" data-fr="Parcours" data-en="Experience">Parcours</div>
+    <div class="s-body">
+      <div class="job">
+        <div class="when" data-fr="janv.–juil. 2026, à distance" data-en="Jan–Jul 2026, remote">janv.–juil. 2026, à distance</div>
+        <div>
+          <div class="what" data-fr="Consultant BI, freelance" data-en="BI consultant, freelance">Consultant BI, freelance</div>
+          <div class="where" data-fr="TGH Group, groupe d'assurance, Bangkok" data-en="TGH Group, insurance group, Bangkok">TGH Group, groupe d'assurance, Bangkok</div>
+          <ul>
+            <li data-fr="Analyse des besoins financiers et définition des indicateurs pour les équipes Finance et Contrôle de gestion d'un groupe multi-entités."
+                data-en="Working out the finance requirements and defining the indicators for the finance and management-control teams of a multi-entity group.">Analyse des besoins financiers et définition des indicateurs pour les équipes Finance et Contrôle de gestion d'un groupe multi-entités.</li>
+            <li data-fr="Tableau de bord <b>Power BI</b> de suivi <b>CAPEX et OPEX</b> multi-entités avec <b>consolidation multi-devises</b>, et fiabilisation des données remontées par les filiales."
+                data-en="A multi-entity <b>CAPEX and OPEX</b> <b>Power BI</b> dashboard with <b>multi-currency consolidation</b>, plus checking the figures sent up by the subsidiaries.">Tableau de bord <b>Power BI</b> de suivi <b>CAPEX et OPEX</b> multi-entités avec <b>consolidation multi-devises</b>, et fiabilisation des données remontées par les filiales.</li>
+            <li data-fr="Automatisation des traitements avec <b>SQL</b>, <b>Power Query</b> et <b>Power Automate</b> pour réduire les délais de reporting."
+                data-en="Automating the processing with <b>SQL</b>, <b>Power Query</b> and <b>Power Automate</b> to shorten the reporting cycle.">Automatisation des traitements avec <b>SQL</b>, <b>Power Query</b> et <b>Power Automate</b> pour réduire les délais de reporting.</li>
+          </ul>
+        </div>
       </div>
-      <div class="tl-item reveal">
-        <div class="tl-when">2018 – 2020 · Bangkok</div>
-        <div class="tl-role" data-fr="Développeur BI" data-en="BI developer">Développeur BI</div>
-        <div class="tl-org">4Plus Consulting</div>
-        <div class="tl-note" data-fr="Data warehouse, ETL et reporting : SQL Server, SAP BW, BusinessObjects, SSIS, Talend, Oracle ODI."
-             data-en="Data warehouse, ETL and reporting: SQL Server, SAP BW, BusinessObjects, SSIS, Talend, Oracle ODI.">Data warehouse, ETL et reporting : SQL Server, SAP BW, BusinessObjects, SSIS, Talend, Oracle ODI.</div>
+      <div class="job">
+        <div class="when" data-fr="déc. 2023–août 2025, Lille" data-en="Dec 2023–Aug 2025, Lille">déc. 2023–août 2025, Lille</div>
+        <div>
+          <div class="what">Data engineer</div>
+          <div class="where" data-fr="oXya, groupe Hitachi" data-en="oXya, Hitachi group">oXya, groupe Hitachi</div>
+          <ul>
+            <li data-fr="Architecture et déploiement d'un <b>entrepôt de données multi-domaines</b> en environnement <b>SAP ERP</b>, en coordination avec les équipes locales pour garantir la cohérence des données."
+                data-en="Designing and deploying a <b>multi-domain data warehouse</b> on <b>SAP ERP</b>, working with the local teams to keep the data consistent.">Architecture et déploiement d'un <b>entrepôt de données multi-domaines</b> en environnement <b>SAP ERP</b>, en coordination avec les équipes locales pour garantir la cohérence des données.</li>
+            <li data-fr="Conception de tableaux de bord <b>Power BI</b> (<b>modèle en étoile</b>, <b>DAX avancé</b>, <b>sécurité RLS</b>) déployés auprès de plusieurs entités."
+                data-en="<b>Power BI</b> dashboards (<b>star schema</b>, <b>advanced DAX</b>, <b>row-level security</b>) rolled out across several entities.">Conception de tableaux de bord <b>Power BI</b> (<b>modèle en étoile</b>, <b>DAX avancé</b>, <b>sécurité RLS</b>) déployés auprès de plusieurs entités.</li>
+            <li data-fr="Automatisation du suivi de conformité <b>ISO 27001</b> du parc serveurs avec <b>Power Automate</b>."
+                data-en="Automating <b>ISO 27001</b> compliance tracking across the server estate with <b>Power Automate</b>.">Automatisation du suivi de conformité <b>ISO 27001</b> du parc serveurs avec <b>Power Automate</b>.</li>
+            <li data-fr="Mise en œuvre des standards de <b>qualité de données</b>, documentation et <b>gouvernance BI</b>."
+                data-en="Putting <b>data quality</b> standards, documentation and <b>BI governance</b> in place.">Mise en œuvre des standards de <b>qualité de données</b>, documentation et <b>gouvernance BI</b>.</li>
+          </ul>
+        </div>
       </div>
-      <div class="tl-item reveal">
-        <div class="tl-when">2021 – 2022 · Bangkok</div>
-        <div class="tl-role" data-fr="Consultant BI (freelance)" data-en="BI consultant (freelance)">Consultant BI (freelance)</div>
-        <div class="tl-org">Avalant Global</div>
+      <div class="job">
+        <div class="when" data-fr="janv.–févr. 2023, Lille" data-en="Jan–Feb 2023, Lille">janv.–févr. 2023, Lille</div>
+        <div>
+          <div class="what">Data analyst</div>
+          <div class="where">Ramsay Santé</div>
+          <ul>
+            <li data-fr="Construction d'indicateurs de suivi d'activité et restitution <b>Power BI</b> aux équipes opérationnelles."
+                data-en="Building activity-tracking indicators and <b>Power BI</b> reporting for the operational teams.">Construction d'indicateurs de suivi d'activité et restitution <b>Power BI</b> aux équipes opérationnelles.</li>
+            <li data-fr="Reprise et fiabilisation de jeux de données d'exploitation."
+                data-en="Taking over operational datasets and making them reliable.">Reprise et fiabilisation de jeux de données d'exploitation.</li>
+          </ul>
+        </div>
       </div>
-      <div class="tl-item reveal">
-        <div class="tl-when" data-fr="janv. – févr. 2023 · Lille" data-en="Jan – Feb 2023 · Lille">janv. – févr. 2023 · Lille</div>
-        <div class="tl-role">Data Analyst</div>
-        <div class="tl-org">Ramsay Santé</div>
-        <div class="tl-note" data-fr="Indicateurs de suivi d'activité et restitution Power BI aux équipes opérationnelles."
-             data-en="Activity-tracking indicators and Power BI reporting for operational teams.">Indicateurs de suivi d'activité et restitution Power BI aux équipes opérationnelles.</div>
+      <div class="job">
+        <div class="when" data-fr="2021–2022, Bangkok" data-en="2021–2022, Bangkok">2021–2022, Bangkok</div>
+        <div>
+          <div class="what" data-fr="Consultant BI, freelance" data-en="BI consultant, freelance">Consultant BI, freelance</div>
+          <div class="where">Avalant Global</div>
+          <ul>
+            <li data-fr="Missions de <b>data warehouse</b>, d'<b>ETL</b> et de reporting chez les clients du cabinet."
+                data-en="Data warehouse, <b>ETL</b> and reporting assignments for the firm's clients.">Missions de <b>data warehouse</b>, d'<b>ETL</b> et de reporting chez les clients du cabinet.</li>
+          </ul>
+        </div>
       </div>
-      <div class="tl-item reveal">
-        <div class="tl-when" data-fr="déc. 2023 – août 2025 · Lille" data-en="Dec 2023 – Aug 2025 · Lille">déc. 2023 – août 2025 · Lille</div>
-        <div class="tl-role">Data Engineer</div>
-        <div class="tl-org" data-fr="oXya (groupe Hitachi)" data-en="oXya (Hitachi group)">oXya (groupe Hitachi)</div>
-        <div class="tl-note" data-fr="Data Warehouse multi-domaines en environnement SAP ERP ; tableaux de bord Power BI (modèle en étoile, DAX avancé, RLS) ; automatisation du suivi ISO 27001."
-             data-en="Multi-domain data warehouse on SAP ERP; Power BI dashboards (star schema, advanced DAX, RLS); automated ISO 27001 compliance tracking.">Data Warehouse multi-domaines en environnement SAP ERP ; tableaux de bord Power BI (modèle en étoile, DAX avancé, RLS) ; automatisation du suivi ISO 27001.</div>
+      <div class="job">
+        <div class="when" data-fr="févr. 2018–déc. 2020, Bangkok" data-en="Feb 2018–Dec 2020, Bangkok">févr. 2018–déc. 2020, Bangkok</div>
+        <div>
+          <div class="what" data-fr="Développeur BI" data-en="BI developer">Développeur BI</div>
+          <div class="where">4Plus Consulting</div>
+          <ul>
+            <li data-fr="<b>Entrepôt de données et chaînes ETL</b> : <b>SQL Server</b>, <b>SAP BW</b>, <b>SSIS</b>, <b>Talend</b>, <b>Oracle ODI</b>."
+                data-en="<b>Data warehouse and ETL chains</b>: <b>SQL Server</b>, <b>SAP BW</b>, <b>SSIS</b>, <b>Talend</b>, <b>Oracle ODI</b>."><b>Entrepôt de données et chaînes ETL</b> : <b>SQL Server</b>, <b>SAP BW</b>, <b>SSIS</b>, <b>Talend</b>, <b>Oracle ODI</b>.</li>
+            <li data-fr="Reporting sous <b>SAP BusinessObjects</b> pour les équipes métier."
+                data-en="Reporting in <b>SAP BusinessObjects</b> for the business teams.">Reporting sous <b>SAP BusinessObjects</b> pour les équipes métier.</li>
+          </ul>
+        </div>
       </div>
-      <div class="tl-item reveal">
-        <div class="tl-when" data-fr="janv. – juil. 2026 · à distance" data-en="Jan – Jul 2026 · remote">janv. – juil. 2026 · à distance</div>
-        <div class="tl-role" data-fr="Consultant BI (freelance)" data-en="BI consultant (freelance)">Consultant BI (freelance)</div>
-        <div class="tl-org" data-fr="TGH Group — groupe d'assurance, Bangkok" data-en="TGH Group — insurance group, Bangkok">TGH Group — groupe d'assurance, Bangkok</div>
-        <div class="tl-note" data-fr="Tableau de bord Power BI CAPEX / OPEX multi-entités avec consolidation multi-devises ; automatisation via SQL, Power Query et Power Automate."
-             data-en="Multi-entity CAPEX / OPEX Power BI dashboard with multi-currency consolidation; automation with SQL, Power Query and Power Automate.">Tableau de bord Power BI CAPEX / OPEX multi-entités avec consolidation multi-devises ; automatisation via SQL, Power Query et Power Automate.</div>
+      <div class="job">
+        <div class="when" data-fr="2016–2018, Bangkok" data-en="2016–2018, Bangkok">2016–2018, Bangkok</div>
+        <div>
+          <div class="what" data-fr="Formateur BI et technique" data-en="BI and technical trainer">Formateur BI et technique</div>
+          <div class="where">Siam Piwat Retail</div>
+          <ul>
+            <li data-fr="Formation des utilisateurs métier sur <b>Tableau</b> et <b>SAP Data Services</b>."
+                data-en="Training business users on <b>Tableau</b> and <b>SAP Data Services</b>.">Formation des utilisateurs métier sur <b>Tableau</b> et <b>SAP Data Services</b>.</li>
+            <li data-fr="Accompagnement des équipes sur la lecture et l'usage des tableaux de bord."
+                data-en="Supporting the teams on reading and using the dashboards.">Accompagnement des équipes sur la lecture et l'usage des tableaux de bord.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- SKILLS -->
   <section id="competences">
-    <h2 data-fr="Compétences" data-en="Skills">Compétences</h2>
-    <div class="grid2">
-      <div class="card reveal"><h4 data-fr="BI &amp; restitution" data-en="BI &amp; reporting">BI &amp; restitution</h4>
-        <p data-fr="Power BI (DAX, Power Query, modèle en étoile, RLS), Tableau, Excel avancé, conception de KPI"
-           data-en="Power BI (DAX, Power Query, star schema, RLS), Tableau, advanced Excel, KPI design">Power BI (DAX, Power Query, modèle en étoile, RLS), Tableau, Excel avancé, conception de KPI</p></div>
-      <div class="card reveal"><h4 data-fr="Python &amp; data science" data-en="Python &amp; data science">Python &amp; data science</h4>
-        <p>pandas, NumPy, PySpark, scikit-learn</p></div>
-      <div class="card reveal"><h4 data-fr="SQL &amp; modélisation" data-en="SQL &amp; modelling">SQL &amp; modélisation</h4>
-        <p data-fr="SQL Server, BigQuery, schéma en étoile, Data Quality"
-           data-en="SQL Server, BigQuery, star schema, data quality">SQL Server, BigQuery, schéma en étoile, Data Quality</p></div>
-      <div class="card reveal"><h4 data-fr="Data engineering" data-en="Data engineering">Data engineering</h4>
-        <p>Databricks, Azure Data Factory, Talend, SSIS, Git</p></div>
-      <div class="card reveal" style="grid-column:1/-1"><h4 data-fr="Méthode" data-en="Method">Méthode</h4>
-        <p data-fr="Analyse du besoin, cahier des charges, spécifications fonctionnelles, Agile"
-           data-en="Requirements analysis, specifications, functional design, Agile">Analyse du besoin, cahier des charges, spécifications fonctionnelles, Agile</p></div>
+    <div class="s-name" data-fr="Compétences" data-en="Skills">Compétences</div>
+    <div class="s-body">
+      <div class="pairs">
+        <div class="pair"><b data-fr="Restitution" data-en="Reporting">Restitution</b>
+          <span data-fr="Power BI (DAX, Power Query, modèle en étoile, RLS), Tableau, Excel avancé, conception d'indicateurs"
+                data-en="Power BI (DAX, Power Query, star schema, row-level security), Tableau, advanced Excel, indicator design">Power BI (DAX, Power Query, modèle en étoile, RLS), Tableau, Excel avancé, conception d'indicateurs</span></div>
+        <div class="pair"><b data-fr="Python et data science" data-en="Python and data science">Python et data science</b>
+          <span>pandas, NumPy, PySpark, scikit-learn</span></div>
+        <div class="pair"><b data-fr="SQL et modélisation" data-en="SQL and modelling">SQL et modélisation</b>
+          <span data-fr="SQL Server, BigQuery, schéma en étoile, qualité de données"
+                data-en="SQL Server, BigQuery, star schema, data quality">SQL Server, BigQuery, schéma en étoile, qualité de données</span></div>
+        <div class="pair"><b data-fr="Data engineering" data-en="Data engineering">Data engineering</b>
+          <span>Databricks, Azure Data Factory, Talend, SSIS, Git</span></div>
+        <div class="pair"><b data-fr="Façon de travailler" data-en="How I work">Façon de travailler</b>
+          <span data-fr="Comprendre le besoin avant d'ouvrir l'outil, écrire ce qui est attendu, livrer par petits morceaux qu'on peut corriger"
+                data-en="Understand the need before opening the tool, write down what is expected, deliver in small pieces that can be corrected">Comprendre le besoin avant d'ouvrir l'outil, écrire ce qui est attendu, livrer par petits morceaux qu'on peut corriger</span></div>
+      </div>
     </div>
   </section>
 
   <!-- EDUCATION -->
   <section id="formation">
-    <h2 data-fr="Formation &amp; certification" data-en="Education &amp; certification">Formation &amp; certification</h2>
-    <div class="card reveal">
-      <div class="edu-item">
-        <div><div class="edu-what" data-fr="M1 MIADS — Marketing, Intelligence Artificielle et Data Science"
-                  data-en="M1 MIADS — Marketing, Artificial Intelligence and Data Science">M1 MIADS — Marketing, Intelligence Artificielle et Data Science</div>
-          <div class="edu-where" data-fr="IAE Lille, Université de Lille" data-en="IAE Lille, University of Lille">IAE Lille, Université de Lille</div></div>
-        <div class="edu-when">2026 – 2028</div>
+    <div class="s-name" data-fr="Formation" data-en="Education">Formation</div>
+    <div class="s-body">
+      <div class="job">
+        <div class="when">2026–2028</div>
+        <div>
+          <div class="what" data-fr="M1 MIADS, marketing, intelligence artificielle et data science"
+               data-en="M1 MIADS, marketing, artificial intelligence and data science">M1 MIADS, marketing, intelligence artificielle et data science</div>
+          <div class="where" data-fr="IAE Lille, Université de Lille" data-en="IAE Lille, University of Lille">IAE Lille, Université de Lille</div>
+        </div>
       </div>
-      <div class="edu-item">
-        <div><div class="edu-what" data-fr="Chef de projet en intelligence artificielle — Titre RNCP niveau 7 (bac+5)"
-                  data-en="AI project manager — RNCP level 7 title (master's level)">Chef de projet en intelligence artificielle — Titre RNCP niveau 7 (bac+5)</div>
-          <div class="edu-where">Junia XP Lille / Ascencia Business School – Collège de Paris</div></div>
-        <div class="edu-when">2023 – 2025</div>
+      <div class="job">
+        <div class="when">2023–2025</div>
+        <div>
+          <div class="what" data-fr="Chef de projet en intelligence artificielle, titre RNCP niveau 7"
+               data-en="AI project manager, RNCP level 7 title (master's level)">Chef de projet en intelligence artificielle, titre RNCP niveau 7</div>
+          <div class="where">Junia XP Lille, Ascencia Business School, Collège de Paris</div>
+        </div>
       </div>
-      <div class="edu-item">
-        <div><div class="edu-what">MSc Information Technology Management</div>
-          <div class="edu-where" data-fr="NIDA, Bangkok — attestation ENIC-NARIC : comparable au niveau master (niveau 7)"
-               data-en="NIDA, Bangkok — ENIC-NARIC statement: comparable to a French master's (level 7)">NIDA, Bangkok — attestation ENIC-NARIC : comparable au niveau master (niveau 7)</div></div>
-        <div class="edu-when">2016</div>
+      <div class="job">
+        <div class="when">2016</div>
+        <div>
+          <div class="what">MSc Information Technology Management</div>
+          <div class="where" data-fr="NIDA, Bangkok. Attestation ENIC-NARIC : comparable au niveau master (niveau 7)."
+               data-en="NIDA, Bangkok. ENIC-NARIC statement: comparable to a French master's degree (level 7).">NIDA, Bangkok. Attestation ENIC-NARIC : comparable au niveau master (niveau 7).</div>
+        </div>
       </div>
-      <div class="edu-item">
-        <div><div class="edu-what">BSc Computer Science</div>
-          <div class="edu-where" data-fr="North Bangkok College, Thaïlande" data-en="North Bangkok College, Thailand">North Bangkok College, Thaïlande</div></div>
-        <div class="edu-when">2007</div>
+      <div class="job">
+        <div class="when">2007</div>
+        <div>
+          <div class="what">BSc Computer Science</div>
+          <div class="where" data-fr="North Bangkok College, Thaïlande" data-en="North Bangkok College, Thailand">North Bangkok College, Thaïlande</div>
+        </div>
       </div>
-      <div class="edu-item">
-        <div><div class="edu-what">Microsoft PL-300 — Power BI Data Analyst Associate</div>
-          <div class="edu-where" data-fr="Certification" data-en="Certification">Certification</div></div>
-        <div class="edu-when">—</div>
+      <div class="job">
+        <div class="when" data-fr="Certification" data-en="Certification">Certification</div>
+        <div>
+          <div class="what">Microsoft PL-300, Power BI Data Analyst Associate</div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- LANGUAGES -->
   <section id="langues">
-    <h2 data-fr="Langues" data-en="Languages">Langues</h2>
-    <div class="langs reveal">
-      <div class="lang-chip"><b data-fr="Thaï" data-en="Thai">Thaï</b>
-        <span data-fr="Langue maternelle" data-en="Native">Langue maternelle</span></div>
-      <div class="lang-chip"><b data-fr="Anglais" data-en="English">Anglais</b><span>C1</span></div>
-      <div class="lang-chip"><b data-fr="Français" data-en="French">Français</b><span>B2</span></div>
+    <div class="s-name" data-fr="Langues" data-en="Languages">Langues</div>
+    <div class="s-body">
+      <div class="pairs">
+        <div class="pair"><b data-fr="Thaï" data-en="Thai">Thaï</b>
+          <span data-fr="langue maternelle" data-en="native">langue maternelle</span></div>
+        <div class="pair"><b data-fr="Anglais" data-en="English">Anglais</b><span>C1</span></div>
+        <div class="pair"><b data-fr="Français" data-en="French">Français</b><span>B2</span></div>
+      </div>
     </div>
   </section>
 
   <!-- CONTACT -->
   <section id="contact">
-    <div class="contact reveal">
-      <h3 data-fr="Parlons de votre besoin data" data-en="Let's talk about your data needs">Parlons de votre besoin data</h3>
-      <p data-fr="Disponible pour un stage de 4 à 6 mois, 3 jours par semaine, dans la métropole lilloise."
-         data-en="Available for a 4–6 month internship, 3 days a week, in the Lille metropolitan area.">Disponible pour un stage de 4 à 6 mois, 3 jours par semaine, dans la métropole lilloise.</p>
-      <a class="btn btn-primary" href="mailto:phichet.phuangkaeo@outlook.com"
-         data-fr="Envoyer un e-mail" data-en="Send an email">Envoyer un e-mail</a>
-      <div class="links">
-        <a href="mailto:phichet.phuangkaeo@outlook.com">phichet.phuangkaeo@outlook.com</a>
-        <a href="tel:+33766089558">+33 7 66 08 95 58</a>
-        <a href="https://www.linkedin.com/in/phichet-p" target="_blank" rel="noopener">LinkedIn</a>
+    <div class="s-name" data-fr="Contact" data-en="Contact">Contact</div>
+    <div class="s-body">
+      <p class="call" data-fr="Des données qui dorment quelque part ?"
+         data-en="Data sitting somewhere unused?">Des données qui dorment quelque part ?</p>
+      <p class="sub" data-fr="Disponible pour un stage de 4 à 6 mois, 3 jours par semaine, dans la métropole lilloise."
+         data-en="Available for a 4 to 6 month internship, 3 days a week, in the Lille metropolitan area.">Disponible pour un stage de 4 à 6 mois, 3 jours par semaine, dans la métropole lilloise.</p>
+      <a class="mail" href="mailto:phichet.phuangkaeo@outlook.com">phichet.phuangkaeo@outlook.com</a>
+      <p class="reach">
+        <a href="tel:+33766089558">+33 7 66 08 95 58</a>,
+        <a href="https://www.linkedin.com/in/phichet-p" target="_blank" rel="noopener">LinkedIn</a>,
         <a href="https://phuangkaeo.github.io" target="_blank" rel="noopener">phuangkaeo.github.io</a>
-      </div>
+      </p>
     </div>
   </section>
 
-  <footer>© 2026 Phichet Phuangkaeo · Lille (59)</footer>
-</div>
+  <footer>Phichet Phuangkaeo, Lille, 2026</footer>
 </main>
+</div>
 
-<script>
-(function(){
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* ---- photo + header on scroll ---- */
-  var photo = document.getElementById('photo');
-  var header = document.getElementById('header');
-  function onScroll(){
-    var past = window.scrollY > 120;
-    photo.classList.toggle('mini', past);
-    header.classList.toggle('stuck', past);
-  }
-  window.addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
-
-  /* ---- counters ---- */
-  function runCounter(el){
-    if(el.dataset.done) return;
-    el.dataset.done = '1';
-    var target = parseFloat(el.dataset.count);
-    var dec = parseInt(el.dataset.dec || '0', 10);
-    var suffix = el.dataset.suffix || '';
-    function fmt(n){
-      if(dec > 0) return n.toFixed(dec);
-      return n >= 1000 ? n.toLocaleString('fr-FR').replace(/\u202f/g,'\u00a0') : String(n);
-    }
-    if(reduce){ el.textContent = fmt(target) + suffix; return; }
-    var start = null, dur = 1100;
-    function step(ts){
-      if(!start) start = ts;
-      var p = Math.min((ts - start) / dur, 1);
-      var eased = 1 - Math.pow(1 - p, 3);
-      var v = dec > 0 ? target * eased : Math.round(target * eased);
-      el.textContent = fmt(v) + suffix;
-      if(p < 1) requestAnimationFrame(step);
-    }
-    requestAnimationFrame(step);
-  }
-
-  /* ---- pipeline ---- */
-  function runPipeline(root){
-    if(root.dataset.done) return;
-    root.dataset.done = '1';
-    var items = root.querySelectorAll('.stage, .arrow');
-    items.forEach(function(el, i){
-      setTimeout(function(){ el.classList.add('on'); }, reduce ? 0 : i * 260);
-    });
-  }
-
-  /* ---- chart bars ---- */
-  function runChart(root){
-    if(root.dataset.done) return;
-    root.dataset.done = '1';
-    root.querySelectorAll('.bar-fill').forEach(function(bar, i){
-      setTimeout(function(){ bar.style.width = bar.dataset.pct + '%'; }, reduce ? 0 : i * 110);
-    });
-  }
-
-  /* ---- observer ---- */
-  var io = new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(!e.isIntersecting) return;
-      var el = e.target;
-      if(el.classList.contains('reveal')) el.classList.add('in');
-      if(el.id === 'pipeline') runPipeline(el);
-      if(el.id === 'chart' || el.id === 'chart2') runChart(el);
-      if(el.id === 'timeline') el.classList.add('drawn');
-      if(el.classList.contains('counters') || el.id === 'kpis' || el.id === 'kpis2' || el.id === 'kpis3'){
-        el.querySelectorAll('[data-count]').forEach(runCounter);
-      }
-      io.unobserve(el);
-    });
-  }, {threshold:0.2, rootMargin:'0px 0px -60px 0px'});
-
-  document.querySelectorAll('.reveal, #pipeline, #chart, #chart2, #timeline, #kpis, #kpis2, #kpis3')
-    .forEach(function(el){ io.observe(el); });
-
-  /* ---- language toggle ---- */
-  var fr = document.getElementById('btn-fr'), en = document.getElementById('btn-en');
-  function setLang(lang){
-    document.documentElement.lang = lang;
-    document.querySelectorAll('[data-fr]').forEach(function(el){
-      var v = el.getAttribute('data-' + lang);
-      if(v !== null) el.innerHTML = v;
-    });
-    fr.setAttribute('aria-pressed', lang === 'fr');
-    en.setAttribute('aria-pressed', lang === 'en');
-    try{ localStorage.setItem('cv-lang', lang); }catch(e){}
-  }
-  fr.addEventListener('click', function(){ setLang('fr'); });
-  en.addEventListener('click', function(){ setLang('en'); });
-  try{
-    var saved = localStorage.getItem('cv-lang');
-    if(saved === 'en') setLang('en');
-  }catch(e){}
-})();
-</script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+<script src="script.js" defer></script>
 </body>
 </html>
