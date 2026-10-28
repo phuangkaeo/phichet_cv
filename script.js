@@ -92,10 +92,13 @@
     svg.setAttribute('height', H);
     svg.textContent = '';
 
-    // the trend: rising, with one gentle plateau on the way
+    // the trend: rising overall, but with real dips and recoveries on the way
     function fy(x){
       var t = (x - pad) / (W - pad * 2);
-      var v = Math.pow(t, 1.25) * 0.82 + Math.sin(t * 3.1) * 0.07 + t * 0.12;
+      var v = t * 0.55
+            + Math.sin(t * 7.5 - 0.4) * 0.26
+            + Math.sin(t * 3.0 + 0.8) * 0.10
+            + t * 0.22;
       return bottom - v * (bottom - top);
     }
     var noise = [9,-12,5,-7,14,-4,-10,6,3,-14,10,-5,12,-8,4,-3,-13,8,6,-9,
@@ -116,12 +119,28 @@
     }
     add('line', {x1:0, y1:bottom, x2:W, y2:bottom}, 'base');
 
-    var pts = [], step = (W - pad * 2) / 60;
-    for(var k = 0; k <= 60; k++){
+    // sample the curve, then join the samples with cubic beziers so the
+    // line bends instead of turning corners
+    var pts = [], segs = 34, step = (W - pad * 2) / segs;
+    for(var k = 0; k <= segs; k++){
       var px = pad + k * step;
-      pts.push(px.toFixed(1) + ' ' + fy(px).toFixed(1));
+      pts.push([px, fy(px)]);
     }
-    var line = 'M' + pts.join(' L');
+    var line = 'M' + pts[0][0].toFixed(1) + ' ' + pts[0][1].toFixed(1);
+    for(var k = 0; k < pts.length - 1; k++){
+      var p0 = pts[k === 0 ? 0 : k - 1],
+          p1 = pts[k],
+          p2 = pts[k + 1],
+          p3 = pts[k + 2 < pts.length ? k + 2 : pts.length - 1];
+      // Catmull-Rom control points, converted to bezier
+      var c1x = p1[0] + (p2[0] - p0[0]) / 6,
+          c1y = p1[1] + (p2[1] - p0[1]) / 6,
+          c2x = p2[0] - (p3[0] - p1[0]) / 6,
+          c2y = p2[1] - (p3[1] - p1[1]) / 6;
+      line += ' C' + c1x.toFixed(1) + ' ' + c1y.toFixed(1)
+            + ' ' + c2x.toFixed(1) + ' ' + c2y.toFixed(1)
+            + ' ' + p2[0].toFixed(1) + ' ' + p2[1].toFixed(1);
+    }
     add('path', {d: line + ' L' + (W - pad) + ' ' + bottom + ' L' + pad + ' ' + bottom + ' Z'}, 'area');
     var path = add('path', {d: line}, 'line');
     var len = 0;
