@@ -26,7 +26,7 @@
 
   /* ---------- header ---------- */
   .bar{
-    position:fixed;top:0;left:0;right:0;z-index:60;height:64px;
+    position:fixed;top:0;left:0;right:0;z-index:60;height:92px;
     display:flex;align-items:center;justify-content:space-between;
     padding:0 28px;
     background:rgba(237,238,233,0);
@@ -34,12 +34,12 @@
     transition:background .3s ease,border-color .3s ease;
   }
   .bar.stuck{background:rgba(237,238,233,.94);border-bottom-color:var(--rule);backdrop-filter:blur(6px)}
-  .bar-left{display:flex;align-items:center;gap:14px}
-  .bar .huyml{--logo-w:30px;flex:none}
+  .bar-left{display:flex;align-items:center;gap:16px}
+  .bar .huyml{--logo-w:45px;flex:none}
   .bar .huyml__ground{display:none}  /* no drop shadow: the box sits flush on the header */
   .bar-id{display:flex;align-items:center;gap:11px;opacity:0;transition:opacity .35s ease}
   .bar.stuck .bar-id{opacity:1}
-  .bar-id span{font-family:"Archivo",sans-serif;font-size:14px;font-weight:600;letter-spacing:-.01em}
+  .bar-id span{font-family:"Archivo",sans-serif;font-size:24px;font-weight:600;letter-spacing:-.01em}
   .lang{display:flex;align-items:center;gap:10px;font-family:"Archivo",sans-serif;font-size:13px;font-weight:500}
   .lang button{
     border:0;background:transparent;padding:2px 0;cursor:pointer;color:var(--muted);
@@ -71,7 +71,7 @@
   /* ---------- hero ---------- */
   .hero{
     min-height:100svh;display:flex;flex-direction:column;justify-content:center;
-    padding:104px 0 44px;
+    padding:132px 0 44px;
   }
   .hero-grid{display:grid;grid-template-columns:1fr 210px;gap:44px;align-items:end}
   h1{
@@ -256,7 +256,10 @@
   @media (max-width:860px){
     body{font-size:16px}
     .wrap{padding:0 20px}
-    .hero{padding:88px 0 34px;min-height:100svh}
+    .bar{padding:0 20px}
+    .bar-left{gap:12px}
+    .bar-id span{font-size:18px}
+    .hero{padding:116px 0 34px;min-height:100svh}
     .hero-grid{grid-template-columns:1fr;gap:22px;align-items:start}
     #app{transform-origin:50% 34vh}
     .portrait{width:128px}
@@ -305,7 +308,7 @@
 .back{font-family:"Archivo",sans-serif;font-size:14px;font-weight:500;color:var(--muted);
   text-decoration:none;display:inline-block;margin:0 0 30px}
 .back:hover{color:var(--ink)}
-.page-head{padding:104px 0 0;border-bottom:1px solid var(--ink);padding-bottom:30px}
+.page-head{padding:132px 0 0;border-bottom:1px solid var(--ink);padding-bottom:30px}
 .page-head h1{font-size:clamp(32px,5.6vw,58px);line-height:1.02;letter-spacing:-.03em;max-width:16ch}
 .page-head .sub{font-size:19px;max-width:54ch;margin-top:14px}
 .body-block{display:grid;grid-template-columns:var(--gutter) 1fr;margin-top:46px}
@@ -314,7 +317,7 @@
   border-top:1px solid var(--ink);margin-top:72px;padding:22px 0 0}
 .next a{font-family:"Archivo",sans-serif;font-size:15px;font-weight:600;text-decoration:none}
 @media (max-width:860px){
-  .page-head{padding-top:84px}
+  .page-head{padding-top:112px}
   .body-block{grid-template-columns:1fr}
   .body-block .s-name{margin-bottom:16px}
 }
