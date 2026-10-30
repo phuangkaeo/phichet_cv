@@ -9,13 +9,16 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="box-logo.css">
 </head>
 <body>
 
 <div class="bar" id="bar">
+  <div class="bar-left">
+  <div class="huyml" data-huyml aria-hidden="true"></div>
   <div class="bar-id">
-    <img src="photo.jpg" alt="">
     <span>Phichet Phuangkaeo</span>
+  </div>
   </div>
   <div class="lang" role="group" aria-label="Langue">
     <button id="btn-fr" aria-pressed="true">FR</button><i>/</i><button id="btn-en" aria-pressed="false">EN</button>
@@ -73,54 +76,6 @@
         <dd data-fr="M1 MIADS, IAE Lille" data-en="M1 MIADS, IAE Lille">M1 MIADS, IAE Lille</dd>
       </dl>
   </div>
-
-  <!-- PROJECTS -->
-  <section id="projets">
-    <div class="s-name" data-fr="Projets" data-en="Projects">Projets</div>
-    <div class="s-body">
-
-      <a class="psum" href="projet-scoring-pd.html">
-        <h3 data-fr="Scoring de probabilité de défaut" data-en="Probability-of-default scoring">Scoring de probabilité de défaut</h3>
-        <p class="sub"
-           data-fr="Un pipeline Medallion sur des entreprises du Nord, de l'extraction API jusqu'au score de risque."
-           data-en="A Medallion pipeline on companies in the Nord region, from API extraction to a risk score.">Un pipeline Medallion sur des entreprises du Nord, de l'extraction API jusqu'au score de risque.</p>
-        <div class="tags">
-          <span class="tag">Databricks</span><span class="tag">PySpark</span><span class="tag">Python</span>
-          <span class="tag">SQL</span><span class="tag">Unity Catalog</span><span class="tag">API INPI RNE</span>
-        </div>
-        <div class="nums countup">
-          <div class="num"><div class="n" data-count="16">0</div>
-            <div class="c" data-fr="entreprises analysées" data-en="companies analysed">entreprises analysées</div></div>
-          <div class="num"><div class="n" data-count="5">0</div>
-            <div class="c" data-fr="secteurs couverts" data-en="sectors covered">secteurs couverts</div></div>
-          <div class="num"><div class="n" data-count="3" data-suffix="%">0</div>
-            <div class="c" data-fr="probabilité moyenne (exemple)" data-en="average probability (sample)">probabilité moyenne (exemple)</div></div>
-        </div>
-        <p class="more" data-fr="Voir le projet" data-en="See the project">Voir le projet</p>
-      </a>
-
-      <a class="psum" href="projet-rfm.html">
-        <h3 data-fr="Segmentation client RFM" data-en="RFM customer segmentation">Segmentation client RFM</h3>
-        <p class="sub"
-           data-fr="Une application R / Shiny sur le comportement d'achat e-commerce, du nettoyage des données jusqu'à la restitution Power BI."
-           data-en="An R / Shiny application on e-commerce purchase behaviour, from data cleansing to Power BI reporting.">Une application R / Shiny sur le comportement d'achat e-commerce, du nettoyage des données jusqu'à la restitution Power BI.</p>
-        <div class="tags">
-          <span class="tag">R</span><span class="tag">Shiny</span><span class="tag">dplyr</span>
-          <span class="tag">ggplot2</span><span class="tag">randomForest</span><span class="tag">Power BI</span>
-        </div>
-        <div class="nums countup">
-          <div class="num"><div class="n" data-count="24399">0</div>
-            <div class="c" data-fr="clients segmentés" data-en="customers segmented">clients segmentés</div></div>
-          <div class="num"><div class="n" data-count="6">0</div>
-            <div class="c" data-fr="segments RFM" data-en="RFM segments">segments RFM</div></div>
-          <div class="num"><div class="n" data-count="28" data-suffix="%">0</div>
-            <div class="c" data-fr="du panier à l'achat" data-en="cart to purchase">du panier à l'achat</div></div>
-        </div>
-        <p class="more" data-fr="Voir le projet" data-en="See the project">Voir le projet</p>
-      </a>
-
-    </div>
-  </section>
 
   <!-- EXPERIENCE -->
   <section id="parcours">
@@ -277,6 +232,54 @@
     </div>
   </section>
 
+  <!-- PROJECTS -->
+  <section id="projets">
+    <div class="s-name" data-fr="Projets" data-en="Projects">Projets</div>
+    <div class="s-body">
+
+      <a class="psum" href="projet-scoring-pd.html">
+        <h3 data-fr="Scoring de probabilité de défaut" data-en="Probability-of-default scoring">Scoring de probabilité de défaut</h3>
+        <p class="sub"
+           data-fr="Un pipeline Medallion sur des entreprises du Nord, de l'extraction API jusqu'au score de risque."
+           data-en="A Medallion pipeline on companies in the Nord region, from API extraction to a risk score.">Un pipeline Medallion sur des entreprises du Nord, de l'extraction API jusqu'au score de risque.</p>
+        <div class="tags">
+          <span class="tag">Databricks</span><span class="tag">PySpark</span><span class="tag">Python</span>
+          <span class="tag">SQL</span><span class="tag">Unity Catalog</span><span class="tag">API INPI RNE</span>
+        </div>
+        <div class="nums countup">
+          <div class="num"><div class="n" data-count="16">0</div>
+            <div class="c" data-fr="entreprises analysées" data-en="companies analysed">entreprises analysées</div></div>
+          <div class="num"><div class="n" data-count="5">0</div>
+            <div class="c" data-fr="secteurs couverts" data-en="sectors covered">secteurs couverts</div></div>
+          <div class="num"><div class="n" data-count="3" data-suffix="%">0</div>
+            <div class="c" data-fr="probabilité moyenne (exemple)" data-en="average probability (sample)">probabilité moyenne (exemple)</div></div>
+        </div>
+        <p class="more" data-fr="Voir le projet" data-en="See the project">Voir le projet</p>
+      </a>
+
+      <a class="psum" href="projet-rfm.html">
+        <h3 data-fr="Segmentation client RFM" data-en="RFM customer segmentation">Segmentation client RFM</h3>
+        <p class="sub"
+           data-fr="Une application R / Shiny sur le comportement d'achat e-commerce, du nettoyage des données jusqu'à la restitution Power BI."
+           data-en="An R / Shiny application on e-commerce purchase behaviour, from data cleansing to Power BI reporting.">Une application R / Shiny sur le comportement d'achat e-commerce, du nettoyage des données jusqu'à la restitution Power BI.</p>
+        <div class="tags">
+          <span class="tag">R</span><span class="tag">Shiny</span><span class="tag">dplyr</span>
+          <span class="tag">ggplot2</span><span class="tag">randomForest</span><span class="tag">Power BI</span>
+        </div>
+        <div class="nums countup">
+          <div class="num"><div class="n" data-count="24399">0</div>
+            <div class="c" data-fr="clients segmentés" data-en="customers segmented">clients segmentés</div></div>
+          <div class="num"><div class="n" data-count="6">0</div>
+            <div class="c" data-fr="segments RFM" data-en="RFM segments">segments RFM</div></div>
+          <div class="num"><div class="n" data-count="28" data-suffix="%">0</div>
+            <div class="c" data-fr="du panier à l'achat" data-en="cart to purchase">du panier à l'achat</div></div>
+        </div>
+        <p class="more" data-fr="Voir le projet" data-en="See the project">Voir le projet</p>
+      </a>
+
+    </div>
+  </section>
+
   <!-- LANGUAGES -->
   <section id="langues">
     <div class="s-name" data-fr="Langues" data-en="Languages">Langues</div>
@@ -313,5 +316,6 @@
 
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
 <script src="script.js" defer></script>
+<script src="box-logo.js" defer></script>
 </body>
 </html>

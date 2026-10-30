@@ -26,7 +26,7 @@
 
   /* ---------- header ---------- */
   .bar{
-    position:fixed;top:0;left:0;right:0;z-index:60;height:58px;
+    position:fixed;top:0;left:0;right:0;z-index:60;height:64px;
     display:flex;align-items:center;justify-content:space-between;
     padding:0 28px;
     background:rgba(237,238,233,0);
@@ -34,9 +34,11 @@
     transition:background .3s ease,border-color .3s ease;
   }
   .bar.stuck{background:rgba(237,238,233,.94);border-bottom-color:var(--rule);backdrop-filter:blur(6px)}
+  .bar-left{display:flex;align-items:center;gap:14px}
+  .bar .huyml{--logo-w:30px;flex:none}
+  .bar .huyml__ground{display:none}  /* no drop shadow: the box sits flush on the header */
   .bar-id{display:flex;align-items:center;gap:11px;opacity:0;transition:opacity .35s ease}
   .bar.stuck .bar-id{opacity:1}
-  .bar-id img{width:30px;height:30px;object-fit:cover;object-position:50% 16%;border-radius:2px}
   .bar-id span{font-family:"Archivo",sans-serif;font-size:14px;font-weight:600;letter-spacing:-.01em}
   .lang{display:flex;align-items:center;gap:10px;font-family:"Archivo",sans-serif;font-size:13px;font-weight:500}
   .lang button{
