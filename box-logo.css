@@ -1,0 +1,118 @@
+/* 3D box logo, extracted from box-logo.html.
+   Colours inherit the site's --paper / --ink so the box sits flush on the header. */
+.huyml{
+  --paper-top:#F6F7F3;
+  --ink-hover:var(--teal);
+  --logo-w:300px;
+  font-family:Inter,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  line-height:normal;
+  -webkit-font-smoothing:antialiased;
+}
+
+  /* ===================== LOGO: กล่อง 3 มิติ ===================== */
+  /* สัดส่วนอ้างอิง: ด้านข้าง 300×500, ฝา 300×300 (กว้าง = ลึก) */
+  .huyml{
+    --W:var(--logo-w);
+    --D:var(--logo-w);                       /* ความลึก = ความกว้าง */
+    --H:calc(var(--logo-w) * 5 / 3);         /* สูง 500 เมื่อกว้าง 300 */
+    position:relative;
+    color:var(--ink);
+    width:var(--W); height:var(--H);
+    perspective:calc(var(--W) * 5);
+    user-select:none; -webkit-tap-highlight-color:transparent;
+    cursor:grab; touch-action:pan-y;
+  }
+  .huyml:hover{--ink:var(--ink-hover)}
+  .huyml:active{cursor:grabbing}
+
+  /* ตาคนดูอยู่ระดับกลางกล่องพอดี (--tilt:0) มองตรง ๆ จึงเห็นเฉพาะหน้ากล่อง
+     ฝาบนหันหนีสายตาจนถูกซ่อนด้วย backface-visibility
+     ส่วน perspective ทำให้ตอนหมุนยังอ่านเป็นก้อนสามมิติ ไม่ใช่กระดาษสองแผ่น */
+  .huyml__box{
+    position:relative; width:100%; height:100%;
+    transform-style:preserve-3d;
+    transform:rotateX(var(--tilt,0deg)) rotateY(var(--deg,0deg));
+    will-change:transform;
+  }
+
+  /* ---- หน้าแต่ละด้าน ---- */
+  .huyml__side,.huyml__cap{
+    position:absolute; left:0;
+    background:var(--paper);
+    transition:color .22s ease;
+    overflow:hidden;
+    backface-visibility:hidden;              /* มองเห็นเฉพาะจากด้านนอกกล่อง */
+    -webkit-backface-visibility:hidden;
+  }
+  .huyml__side{top:0; width:var(--W); height:var(--H)}
+  .huyml__side--a{transform:translateZ(calc(var(--D) / 2))}
+  .huyml__side--b{transform:rotateY( 90deg) translateZ(calc(var(--D) / 2))}
+  .huyml__side--c{transform:rotateY(180deg) translateZ(calc(var(--D) / 2))}
+  .huyml__side--d{transform:rotateY(270deg) translateZ(calc(var(--D) / 2))}
+
+  .huyml__cap{
+    width:var(--W); height:var(--D);
+    top:50%; margin-top:calc(var(--D) / -2);
+  }
+  .huyml__cap--top{
+    background:var(--paper-top);
+    transform:rotateX( 90deg) translateZ(calc(var(--H) / 2));
+  }
+  .huyml__cap--bot{transform:rotateX(-90deg) translateZ(calc(var(--H) / 2))}
+
+  /* ---- แสงเงา: ทาทับตามมุมที่หันเข้าหาคนดู (JS คุมค่า) ---- */
+  .huyml__shade{
+    position:absolute; inset:0; pointer-events:none;
+    background:#000; opacity:var(--sh,0);
+  }
+
+  /* ---- เงาใต้กล่อง ---- */
+  .huyml__ground{
+    position:absolute; left:50%; top:var(--gy,100%);
+    width:calc(var(--W) * 1.15); height:calc(var(--W) * .26);
+    transform:translate(-50%,-25%);
+    background:radial-gradient(ellipse at center,rgba(0,0,0,.30),transparent 70%);
+    pointer-events:none;
+  }
+
+  /* ---- เนื้อหาในแต่ละหน้า: เขียนด้วยพิกัดอ้างอิงแล้วย่อ/ขยายทีเดียว ---- */
+  .huyml__fit{
+    position:absolute; top:0; left:0;
+    transform-origin:top left; transform:scale(var(--s,1));
+  }
+
+  /* หน้ารูป: 300 × 500 */
+  .huyml__portrait{width:300px; height:500px; display:flex; flex-direction:column}
+  .huyml__head{
+    flex:none; height:74px;
+    /* inset shadow, not border: a scaled-down border leaves hairlines on the face edges in Chrome */
+    box-shadow:inset 0 -5px 0 var(--ink);
+    transition:box-shadow .22s ease;
+    display:grid; place-items:center;
+    font-size:46px; font-weight:800; letter-spacing:.04em;
+  }
+  .huyml__picwrap{flex:1; min-height:0; overflow:hidden}
+  .huyml__pic{
+    width:100%; height:100%; display:block; color:var(--ink);
+    transition:color .22s ease;
+    stroke:currentColor; stroke-width:var(--sw,0); stroke-linejoin:round;
+  }
+
+  /* หน้าข้อความ: เขียนแนวนอน 500 × 300 แล้วหมุน -90° */
+  .huyml__rot{
+    position:absolute; top:50%; left:50%;
+    width:500px; height:300px;
+    transform:translate(-50%,-50%) rotate(-90deg) scale(var(--s,1));
+  }
+  .huyml__type{
+    width:100%; height:100%; padding:16px 22px 22px;
+    display:flex; flex-direction:column; justify-content:space-between;
+  }
+  .huyml__word{display:flex; align-items:flex-start; line-height:.8}
+  .huyml__word b{font-size:62px; font-weight:800; letter-spacing:-.045em}
+  .huyml__rows{
+    display:flex; flex-direction:column; gap:9px;
+    font-size:26px; font-weight:700; letter-spacing:-.005em; line-height:1.2;
+  }
+  .huyml__cr{text-align:right}
+  .huyml__mail{font-size:25px}
