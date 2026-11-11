@@ -205,39 +205,20 @@
       return;
     }
 
-    if(role) steps.push([role, 420]);
-    words.forEach(function(w, i){ steps.push([w, 520 + i * 120]); });
-    if(portrait2) steps.push([portrait2, 660]);
-    if(lead) steps.push([lead, 940]);
-    rows.forEach(function(r, i){ steps.push([r, 1150 + i * 90]); });
+    // short and overlapping: everything is visible within about half a second
+    if(role) steps.push([role, 60]);
+    words.forEach(function(w, i){ steps.push([w, 120 + i * 80]); });
+    if(portrait2) steps.push([portrait2, 150]);
+    if(lead) steps.push([lead, 260]);
+    rows.forEach(function(r, i){ steps.push([r, 340 + i * 50]); });
 
     steps.forEach(function(pair){
       setTimeout(function(){ pair[0].classList.add('in'); }, pair[1]);
     });
-    if(trendBox) setTimeout(function(){ trendBox.classList.add('settled'); }, 1200);
+    if(trendBox) setTimeout(function(){ trendBox.classList.add('settled'); }, 200);
   }
 
-  /* smooth scrolling, if the library arrives */
-  function smooth(){
-    if(reduce || !window.Lenis) return;
-    var lenis = new Lenis({
-      duration: 1.15,
-      easing: function(t){ return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-      smoothWheel: true
-    });
-    function raf(time){ lenis.raf(time); requestAnimationFrame(raf); }
-    requestAnimationFrame(raf);
-    document.querySelectorAll('a[href^="#"]').forEach(function(a){
-      a.addEventListener('click', function(e){
-        var el = document.querySelector(a.getAttribute('href'));
-        if(!el) return;
-        e.preventDefault();
-        lenis.scrollTo(el, {duration: 1.4});
-      });
-    });
-  }
-  if(document.readyState === 'complete') smooth();
-  else window.addEventListener('load', smooth);
+  /* scrolling is native; html{scroll-behavior:smooth} handles in-page links */
 
   /* language */
   var fr = document.getElementById('btn-fr'), en = document.getElementById('btn-en');

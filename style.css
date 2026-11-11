@@ -33,7 +33,7 @@
     border-bottom:1px solid transparent;
     transition:background .3s ease,border-color .3s ease;
   }
-  .bar.stuck{background:rgba(237,238,233,.94);border-bottom-color:var(--rule);backdrop-filter:blur(6px)}
+  .bar.stuck{background:rgba(237,238,233,.98);border-bottom-color:var(--rule)}
   .bar-left{display:flex;align-items:center;gap:16px}
   .bar .huyml{--logo-w:45px;flex:none}
   .bar .huyml__ground{display:none}  /* no drop shadow: the box sits flush on the header */
@@ -55,18 +55,16 @@
       radial-gradient(58% 48% at 18% 26%, rgba(217,144,15,.22), transparent 70%),
       radial-gradient(52% 44% at 82% 72%, rgba(11,107,102,.20), transparent 70%),
       #D7DACF;
-    transition:opacity .9s ease .5s;
+    transition:opacity .4s ease .1s;
   }
   body.ready .backdrop{opacity:0}
+  /* only the zoom animates: corners and shadow forced a full-page repaint every frame */
   #app{
     position:relative;z-index:1;background:var(--paper);overflow:clip;
-    transform-origin:50% 40vh;transform:scale(.93);border-radius:26px;
-    box-shadow:0 30px 70px rgba(22,32,44,.14);
-    transition:transform 1.25s cubic-bezier(.16,1,.3,1),
-               border-radius 1.25s cubic-bezier(.16,1,.3,1),
-               box-shadow 1s ease;
+    transform-origin:50% 40vh;transform:scale(.97);
+    transition:transform .6s cubic-bezier(.16,1,.3,1);
   }
-  body.ready #app{transform:none;border-radius:0;box-shadow:none}
+  body.ready #app{transform:none}
 
   /* ---------- hero ---------- */
   .hero{
@@ -218,33 +216,34 @@
   .trend svg{display:block;width:100%}
   .trend .grid{stroke:var(--rule-soft);stroke-width:1}
   .trend .base{stroke:var(--rule);stroke-width:1}
-  .trend .area{fill:var(--amber);opacity:0;transition:opacity 1s ease .55s}
+  .trend .area{fill:var(--amber);opacity:0;transition:opacity .6s ease .2s}
   .trend.settled .area{opacity:.07}
   .trend .dot{fill:var(--amber);opacity:0;transform:translateY(var(--from));
-    transition:transform 1.25s cubic-bezier(.22,.75,.25,1),opacity .55s ease}
+    transition:transform .8s cubic-bezier(.22,.75,.25,1),opacity .4s ease}
   .trend.settled .dot{opacity:.55;transform:translateY(0)}
   .trend .line{fill:none;stroke:var(--teal);stroke-width:2;stroke-linecap:round;
     stroke-linejoin:round;stroke-dasharray:var(--len);stroke-dashoffset:var(--len);
-    transition:stroke-dashoffset 1.5s cubic-bezier(.4,0,.2,1) .35s}
+    transition:stroke-dashoffset .9s cubic-bezier(.4,0,.2,1) .1s}
   .trend.settled .line{stroke-dashoffset:0}
-  .trend .head{fill:var(--teal);opacity:0;transition:opacity .5s ease 1.6s}
+  .trend .head{fill:var(--teal);opacity:0;transition:opacity .4s ease .9s}
   .trend.settled .head{opacity:1}
   .trend .mark{font-family:"Archivo",sans-serif;font-size:12px;font-weight:500;
-    fill:var(--muted);opacity:0;transition:opacity .7s ease 1.5s}
+    fill:var(--muted);opacity:0;transition:opacity .5s ease .8s}
   .trend.settled .mark{opacity:1}
 
   /* ---------- intro ---------- */
   .lift{opacity:0;transform:translateY(14px);
-    transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+    transition:opacity .45s ease,transform .5s cubic-bezier(.2,.8,.2,1)}
   .lift.in{opacity:1;transform:none}
-  .w{display:inline-block;opacity:0;transform:translateY(22px);filter:blur(7px);
-    transition:opacity .7s ease,transform .85s cubic-bezier(.2,.8,.2,1),filter .7s ease}
-  .w.in{opacity:1;transform:none;filter:none}
+  /* plain fade + rise: animating a blur filter is one of the costliest paints */
+  .w{display:inline-block;opacity:0;transform:translateY(18px);
+    transition:opacity .45s ease,transform .55s cubic-bezier(.2,.8,.2,1)}
+  .w.in{opacity:1;transform:none}
   .facts{overflow:hidden}
   .facts dl{opacity:0;transform:translateY(10px);
-    transition:opacity .5s ease,transform .6s cubic-bezier(.2,.8,.2,1)}
+    transition:opacity .35s ease,transform .4s cubic-bezier(.2,.8,.2,1)}
   .facts dl.in{opacity:1;transform:none}
-  .portrait{opacity:0;transition:opacity .9s ease}
+  .portrait{opacity:0;transition:opacity .5s ease}
   .portrait.in{opacity:1}
   .portrait.in.fade{opacity:.18}
 
@@ -283,12 +282,12 @@
     *{transition:none !important;animation:none !important}
     .stage{opacity:1}
     .portrait,.portrait.fade{opacity:1}
-    .lift,.w,.facts dl{opacity:1;transform:none;filter:none}
+    .lift,.w,.facts dl{opacity:1;transform:none}
     .trend .dot{opacity:.55;transform:none}
     .trend .line{stroke-dashoffset:0}
     .trend .area{opacity:.07}
     .trend .head,.trend .mark{opacity:1}
-    #app{transform:none;border-radius:0;box-shadow:none}
+    #app{transform:none}
     .backdrop{opacity:0}
     .val{opacity:1}
   }
@@ -323,8 +322,7 @@
 }
 
 /* the header stays visible on the project pages */
-body.sub .bar{background:rgba(237,238,233,.94);border-bottom-color:var(--rule);
-  backdrop-filter:blur(6px)}
+body.sub .bar{background:rgba(237,238,233,.98);border-bottom-color:var(--rule)}
 body.sub .bar-id{opacity:1}
 body.sub .bar-id a{display:flex;align-items:center;gap:11px;color:inherit;text-decoration:none}
 body.sub .bar-id a:hover span{color:var(--teal)}
